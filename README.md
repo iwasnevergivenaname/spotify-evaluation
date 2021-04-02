@@ -1,4 +1,4 @@
-#spotify evaluation 
+# spotify evaluation 
 
 welcome to this Flask personality evaluation app! judgements are made using a users available Spotify data 
 
