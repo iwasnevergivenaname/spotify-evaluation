@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<p>danceability: {{info.danceability}}</p>
+<h6>0.0 --> 1.0</h6>
+
+<p>energy: {{info.energy}}</p>
+<h6>0.0 --> 1.0</h6>
+
+<p>loudness: {{info.loudness}}</p>
+<h6>-60dB --> 0dB</h6>
+
+<p>speechiness: {{info.speechiness}}</p>
+<h6>0.0 --> 1.0</h6>
+
+<p>acousticness: {{info.acousticness}}</p>
+<h6>0.0 --> 1.0</h6>
+
+<p>tempo: {{info.tempo}}</p>
+<h6>bpm</h6>
+
+<p>valence: {{info.valence}}</p>
+<h6>0.0 --> 1.0</h6>
+<h6>sad --> happy</h6>
+
+<p>duration: {{info.duration_ms}}ms</p>
+<h6>milliseconds</h6>
+
+{% endblock %}

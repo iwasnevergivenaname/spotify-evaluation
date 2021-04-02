@@ -1,0 +1,57 @@
+body {
+    background-color: #e7dede;
+    display: flex;
+    flex-direction: column;
+    background-image: url("../static/venus-background.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.front-page {
+
+}
+
+.spotify-connect {
+    text-align: center;
+    position: absolute;
+    width: 855px;
+    height: 282px;
+    left: 100px;
+    top: 200px;
+    font-size: 140px;
+    line-height: 176px;
+    color: #CDE4C0;
+    filter: blur(4px);
+}
+
+.artist-container, .track-container {
+    display: grid;
+    grid-auto-columns: max-content;
+    grid-auto-flow: dense;
+    grid-auto-rows: minmax(100px, auto);
+    grid-gap: 25px;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+.grid-item {
+    grid-row: span 1;
+    grid-column: span 1;
+}
+
+a {
+    text-decoration: none;
+    color: #3A7734;
+}
+
+footer {
+
+}
+
+/*     hannah.mace93@gmail.com     */
+/*     Sh0wM3Ur4nus!              */

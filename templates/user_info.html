@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>moral judgment on {{profile.display_name}}</h1>
+
+<div class="artist-container">
+    {% for artist in artists['items'] %}
+
+    <div class="grid-item">
+        <dt>artist</dt>
+        <dd>{{artist.name}}</dd>
+        <dt>genres</dt>
+        <dd>{{artist.genres}}</dd>
+        <img src="{{artist.images[0].url}}" alt="{{artist.name}}" style="height: 200px"/>
+        <h6>popularity: {{artist.popularity}}%</h6>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="track-container">
+    {% for track in tracks['items'] %}
+
+    <div class="grid-item">
+
+        <p>{{track.name}} by {{track.artists[0].name}}</p>
+        <a href="/{{track.id}}"><img src="{{track.album.images[0].url}}" alt="{{track.name}}" style="height: 200px"/></a>
+        <h6>popularity: {{track.popularity}}%</h6>
+
+    </div>
+    {% endfor %}
+
+
+</div>
+
+
+{% endblock %}
