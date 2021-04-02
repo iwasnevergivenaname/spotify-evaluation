@@ -1,7 +1,8 @@
-#spotify evaluation 
+# spotify evaluation 
+
 welcome to this Flask personality evaluation app! judgements are made using a users available Spotify data 
 
-##getting started
+## getting started
 before you run this code on your own machine, please log in and register an app with the
 [Spotify for Developers API](https://developer.spotify.com/dashboard/).
 you will need the client id and client secret that will be provided for each app you create on there. and then register 
