@@ -3,7 +3,7 @@ from flask import Flask, request, redirect, g, render_template, session
 import requests
 from urllib.parse import quote
 import os
-from models import db, User, Artist, AudioFeatures, Genre, Evaluation
+from models import db, connect_db, User, Artist, AudioFeatures, Genre, Evaluation
 
 app = Flask(__name__)
 

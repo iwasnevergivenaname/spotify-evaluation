@@ -18,7 +18,7 @@ class User(db.Model):
 	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 	name = db.Column(db.String, nullable=False)
 	
-	genres = db.relationship("Genre", backref="user")
+	# genres = db.relationship("Genre", backref="user")
 
 
 class Artist(db.Model):
@@ -31,8 +31,8 @@ class Artist(db.Model):
 	popularity = db.Column(db.Integer, nullable=False)
 	image = db.Column(db.String)
 	
-	genres = db.relationship("Genre", backref="artist")
-
+	# genres = db.relationship("Genre", backref="artist")
+	# track = db.relationship('AudioFeatures')
 
 class AudioFeatures(db.Model):
 	"""Audio Features for a Track"""
@@ -41,13 +41,15 @@ class AudioFeatures(db.Model):
 	
 	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 	track_name = db.Column(db.String, nullable=False)
-	artist_id = db.Column(db.ForeignKey('artist.id'), nullable=False)
+	# artist_id = db.Column(db.ForeignKey('artist.id'), nullable=False)
 	popularity = db.Column(db.Integer, nullable=False)
 	energy = db.Column(db.Float, nullable=False)
 	dance = db.Column(db.Float, nullable=False)
 	acoustic = db.Column(db.Float, nullable=False)
 	speech = db.Column(db.Float, nullable=False)
 	valence = db.Column(db.Float, nullable=False)
+	
+	# artist = db.relationship('Artist')
 
 
 class Genre(db.Model):
@@ -57,8 +59,8 @@ class Genre(db.Model):
 	
 	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 	title = db.Column(db.String, nullable=False, unique=True)
-	artist_id = db.Column(db.ForeignKey('artist.id'), nullable=False)
-	user_id = db.Column(db.ForeignKey('user.id'), nullable=False)
+	# artist_id = db.Column(db.ForeignKey('artist.id'), nullable=False)
+	# user_id = db.Column(db.ForeignKey('user.id'), nullable=False)
 
 
 class Evaluation(db.Model):
@@ -67,5 +69,5 @@ class Evaluation(db.Model):
 	__tablename__ = "evaluations"
 	
 	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-	user_id = db.Column(db.ForeignKey('user.id'), nullable=False)
+	# user_id = db.Column(db.ForeignKey('user.id'), nullable=False)
 	result = db.Column(db.String, nullable=False)
