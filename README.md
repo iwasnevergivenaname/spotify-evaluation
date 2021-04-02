@@ -12,6 +12,7 @@ in your terminal run
 ```shell script
 source venv/bin/activate
 pip3 install requirements.txt
+psql < spotify-evaluation.sql
 flask run
 ``` 
 and open a web browser to [127.0.0.1:5000](http://127.0.0.1:5000/)

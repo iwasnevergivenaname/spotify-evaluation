@@ -3,9 +3,11 @@ from flask import Flask, request, redirect, g, render_template, session
 import requests
 from urllib.parse import quote
 import os
+from models import db, User, Artist, AudioFeatures, Genre, Evaluation
 
 app = Flask(__name__)
 
+# these are all for spotify
 client_id = os.environ.get("CLIENT_ID")
 client_secret = os.environ.get("CLIENT_SECRET")
 spotify_auth_url = "https://accounts.spotify.com/authorize"
@@ -14,6 +16,7 @@ spotify_api_base = "https://api.spotify.com"
 API_VERSION = "v1"
 spotify_api_url = f"{spotify_api_base}/{API_VERSION}"
 
+#  server side information
 CLIENT_SIDE_URL = "http://127.0.0.1"
 PORT = 5000
 redirect_uri = os.environ.get("REDIRECT_URI")
@@ -24,6 +27,11 @@ SHOW_DIALOG_bool = True
 SHOW_DIALOG_str = str(SHOW_DIALOG_bool).lower()
 
 app.config["SECRET_KEY"] = "secrets secrets are no fun"
+
+# get the models up and running
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///spotify_evaluation'
+connect_db(app)
+db.create_all()
 
 # the following spotify authentication code was taken and adapted slightly from this repo
 # https://github.com/drshrey/spotify-flask-auth-example/blob/master/main.py
