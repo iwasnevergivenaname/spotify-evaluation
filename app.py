@@ -115,18 +115,27 @@ def show_user_info():
 	return render_template("user_info.html", profile=profile_data, artists=top_artist_data, tracks=top_tracks_data)
 
 
-@app.route("/<track_id>")
+@app.route("/<track_id>", methods=["GET"])
 def show_track_data(track_id):
 	# access token to access api
 	access_token = session['access_token']
 	auth_header = {"Authorization": f"Bearer {access_token}"}
 	
+	# track endpoint
+	track_enpoint = f"{spotify_api_url}/tracks/{track_id}"
+	track_resp = requests.get(track_enpoint, headers=auth_header)
+	track_data = json.loads(track_resp.text)
+	
 	# track features like loudness and tempo
 	track_features_endpoint = f"{spotify_api_url}/audio-features/{track_id}"
 	track_features_resp = requests.get(track_features_endpoint, headers=auth_header)
 	track_features_data = json.loads(track_features_resp.text)
+	#
+	# name = track.name
+	# print("💔", name)
 	
-	return render_template('track_analysis.html', info=track_features_data)
+	return render_template('track_analysis.html', info=track_features_data, track=track_data)
+
 
 @app.route("/about")
 def about_page():

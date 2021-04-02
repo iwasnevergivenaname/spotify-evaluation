@@ -27,7 +27,7 @@ data of those Tracks and Artists, an light hearted judgement is made and returne
 fun, while exploring data visualization. 
 
 #### judgement criteria 
-everything is based off of the idea that music falling in specific ranges of data fall into one of these six categories,
+everything is based off of the idea that music falling in specific ranges of data fall into one of these nine categories,
 Lawful Good, Lawful Neutral, Lawful Evil, Neutral Good, True Neutral, Neutral Evil, Chaotic Good, Chaotic Neutral, Chaotic Evil.
 
 the data in question would be the "audio features" returned for specific Tracks by Spotify. the information returned was

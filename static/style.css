@@ -8,13 +8,26 @@ body {
     background-attachment: fixed;
 }
 
+a {
+    text-decoration: none;
+    color: #3A7734;
+}
+
 .container {
     max-width: 1200px;
     margin: auto;
 }
 
-.front-page {
+.track-background {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    width: 1200px;
+    opacity: 0.7;
+}
 
+.track-details {
+    padding: 50px;
 }
 
 .spotify-connect {
@@ -44,9 +57,8 @@ body {
     grid-column: span 1;
 }
 
-a {
-    text-decoration: none;
-    color: #3A7734;
+.spotify-img {
+    border-radius: 5px;
 }
 
 .about {

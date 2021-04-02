@@ -30,6 +30,7 @@ class Artist(db.Model):
 	name = db.Column(db.String, nullable=False, unique=True)
 	popularity = db.Column(db.Integer, nullable=False)
 	image = db.Column(db.String)
+	spotify_id = db.Column(db.String, nullable=False)
 	
 	# genres = db.relationship("Genre", backref="artist")
 	# track = db.relationship('AudioFeatures')
@@ -40,7 +41,7 @@ class AudioFeatures(db.Model):
 	__tablename__ = "audio features"
 	
 	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-	track_name = db.Column(db.String, nullable=False)
+	title = db.Column(db.String, nullable=False)
 	# artist_id = db.Column(db.ForeignKey('artist.id'), nullable=False)
 	popularity = db.Column(db.Integer, nullable=False)
 	energy = db.Column(db.Float, nullable=False)
@@ -48,6 +49,7 @@ class AudioFeatures(db.Model):
 	acoustic = db.Column(db.Float, nullable=False)
 	speech = db.Column(db.Float, nullable=False)
 	valence = db.Column(db.Float, nullable=False)
+	spotify_id = db.Column(db.String, nullable=False)
 	
 	# artist = db.relationship('Artist')
 
