@@ -50,6 +50,7 @@ a {
 }
 
 .about {
-    background-color: purple;
+    background-color: rgba(146, 19, 167, 0.4);
+    padding: 15px;
 
 }
