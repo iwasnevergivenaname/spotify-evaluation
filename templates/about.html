@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="about">
 
 <p>this app uses your spotify data (artist and tracks you've listened to) to make judgments on you</p>
 
-
+<p>judgements are made based off of how Spotify has measured certain audio features. here are the categories as defined by Spotify:</p>
 <dd>acousticness</dd>
 <dt>A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.</dt>
 
@@ -54,5 +55,7 @@
     (e.g. sad, depressed, angry).
 </dt>
 
+<h6><a href="https://github.com/iwasnevergivenaname/spotify-evaluation">you can check out the repo for this app here</a></h6>
 
+</div>
 {% endblock %}
