@@ -76,6 +76,14 @@ def callback():
 	# access token to access api
 	auth_header = {"Authorization": f"Bearer {access_token}"}
 	
+	return redirect('/profile')
+	
+@app.route('/profile')
+def show_user_info():
+	# access token to access api
+	access_token = session['access_token']
+	auth_header = {"Authorization": f"Bearer {access_token}"}
+	
 	# profile data
 	user_profile_endpoint = f"{spotify_api_url}/me"
 	profile_resp = requests.get(user_profile_endpoint, headers=auth_header)
