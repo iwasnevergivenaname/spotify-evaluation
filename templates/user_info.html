@@ -12,7 +12,7 @@
         <dd>{{artist.name}}</dd>
         <dt>genres</dt>
         <dd>{{artist.genres}}</dd>
-        <img class="spotify-img" src="{{artist.images[0].url}}" alt="{{artist.name}}" style="height: 200px"/>
+        <a href="/artist/{{artist.id}}"><img class="spotify-img" src="{{artist.images[0].url}}" alt="{{artist.name}}" style="height: 200px"/></a>
         <h6>popularity: {{artist.popularity}}%</h6>
     </div>
     {% endfor %}
@@ -24,7 +24,7 @@
     <div class="grid-item">
 
         <p>{{track.name}} by {{track.artists[0].name}}</p>
-        <a href="/{{track.id}}"><img class="spotify-img" src="{{track.album.images[0].url}}" alt="{{track.name}}" style="height: 200px"/></a>
+        <a href="/track/{{track.id}}"><img class="spotify-img" src="{{track.album.images[0].url}}" alt="{{track.name}}" style="height: 200px"/></a>
         <h6>popularity: {{track.popularity}}%</h6>
 
     </div>

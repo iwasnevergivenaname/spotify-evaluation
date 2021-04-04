@@ -3,7 +3,7 @@ from flask import Flask, request, redirect, g, render_template, session
 import requests
 from urllib.parse import quote
 import os
-from models import db, connect_db, User, Artist, AudioFeatures, Genre, Evaluation
+from models import db, connect_db, User, Artist, Track, Genre, Evaluation
 
 app = Flask(__name__)
 
@@ -108,32 +108,77 @@ def show_user_info():
 	top_tracks_data = json.loads(top_tracks_resp.text)
 	
 	# user playlist data
-	playlist_endpoint = f"{profile_data['href']}/playlists"
-	playlists_resp = requests.get(playlist_endpoint, headers=auth_header)
-	playlist_data = json.loads(playlists_resp.text)
+	# playlist_endpoint = f"{profile_data['href']}/playlists"
+	# playlists_resp = requests.get(playlist_endpoint, headers=auth_header)
+	# playlist_data = json.loads(playlists_resp.text)
 	
 	return render_template("user_info.html", profile=profile_data, artists=top_artist_data, tracks=top_tracks_data)
 
 
-@app.route("/<track_id>", methods=["GET"])
+@app.route("/artist/<artist_id>")
+def show_artist_data(artist_id):
+	# access token to access api
+	access_token = session['access_token']
+	auth_header = {"Authorization": f"Bearer {access_token}"}
+	
+	# artist
+	artist_endpoint = f"{spotify_api_url}/artists/{artist_id}"
+	artist_resp = requests.get(artist_endpoint, headers=auth_header)
+	artist_data = json.loads(artist_resp.text)
+	
+	# artist top tracks
+	artist_top_tracks_endpoint = f"{spotify_api_url}/artists/{artist_id}/top-tracks?market=US"
+	artist_top_tracks_resp = requests.get(artist_top_tracks_endpoint, headers=auth_header)
+	artist_top_tracks_data = json.loads(artist_top_tracks_resp.text)
+	
+	# artists related artist
+	artist_related_artist_endpoint = f"{spotify_api_url}/artists/{artist_id}/related-artists"
+	artist_related_artist_resp = requests.get(artist_related_artist_endpoint, headers=auth_header)
+	artist_related_artist_data = json.loads(artist_related_artist_resp.text)
+	
+	name = artist_data['name']
+	popularity = artist_data['popularity']
+	image = artist_data['images'][0]['url']
+	spotify_id = artist_data['id']
+	
+	artist = Artist(name=name, popularity=popularity, image=image, spotify_id=spotify_id)
+	db.session.add(artist)
+	db.session.commit()
+	
+	return render_template('artists_details.html', artist=artist_data, top_tracks=artist_top_tracks_data, related_artist=artist_related_artist_data)
+
+
+@app.route("/track/<track_id>", methods=["GET"])
 def show_track_data(track_id):
 	# access token to access api
 	access_token = session['access_token']
 	auth_header = {"Authorization": f"Bearer {access_token}"}
 	
-	# track endpoint
-	track_enpoint = f"{spotify_api_url}/tracks/{track_id}"
-	track_resp = requests.get(track_enpoint, headers=auth_header)
+	# track
+	track_endpoint = f"{spotify_api_url}/tracks/{track_id}"
+	track_resp = requests.get(track_endpoint, headers=auth_header)
 	track_data = json.loads(track_resp.text)
 	
-	# track features like loudness and tempo
+	# track features like popularity and valence
 	track_features_endpoint = f"{spotify_api_url}/audio-features/{track_id}"
 	track_features_resp = requests.get(track_features_endpoint, headers=auth_header)
 	track_features_data = json.loads(track_features_resp.text)
-	#
-	# name = track.name
-	# print("💔", name)
 	
+	title = track_data['name']
+	artist_id = track_data['artists'][0]['id']
+	popularity = track_data['popularity']
+	energy = track_features_data['energy']
+	dance = track_features_data['danceability']
+	acoustic = track_features_data['acousticness']
+	speech = track_features_data['speechiness']
+	valence = track_features_data['valence']
+	spotify_id = track_features_data['id']
+	
+	track = Track(title=title, artist_id=artist_id, popularity=popularity, energy=energy, dance=dance,
+	                      acoustic=acoustic, speech=speech, valence=valence, spotify_id=spotify_id)
+	db.session.add(track)
+	db.session.commit()
+
 	return render_template('track_analysis.html', info=track_features_data, track=track_data)
 
 

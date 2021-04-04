@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="track-background" style="background-image: url('{{artist.images[0].url}}'); background-position: center; background-size: contain">
+
+
+
+ARTIST: {{artist.name}} {{artist.popularity}} {{artist.genres}}
+<hr>
+
+TOP TRACKS :
+{% for track in top_tracks.tracks %}
+
+{{track.name}} <br>
+{% endfor %}
+
+<hr>
+
+related:
+{% for artist in related_artist.artists %}
+<a href="/artist/{{artist.id}}">{{artist.name}}</a>
+ <br>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}
