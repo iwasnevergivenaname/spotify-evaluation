@@ -84,7 +84,8 @@ using Spotify's green for initial inspiration, i was able to eventually find a m
 | /connect | spotify redirect |
 | /callback | registered redirect uri |
 | /profile | data on user |
-| /:track-id | data on specific track |
+| /track/:track-id | data on specific track |
+| /artist/:artist-id | data on specific artist |
 | /about | about page |
 
 

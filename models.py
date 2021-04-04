@@ -28,7 +28,7 @@ class Artist(db.Model):
 	
 	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 	name = db.Column(db.String, nullable=False, unique=True)
-	popularity = db.Column(db.Integer, nullable=False)
+	popularity = db.Column(db.Integer)
 	image = db.Column(db.String)
 	spotify_id = db.Column(db.String, nullable=False, unique=True)
 	
