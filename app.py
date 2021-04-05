@@ -206,10 +206,21 @@ def show_search_page():
 
 @app.route('/search', methods=['POST'])
 def search_spotify_api():
-	print("🍄", request.form.get('search'))
 	search = request.form.get('search')
-	return render_template('search_result.html', search=search)
+	type = request.form.get('artist')
+	print("🍄", search, type)
+	
+	access_token = session['access_token']
+	auth_header = {"Authorization": f"Bearer {access_token}"}
+	
+	# search endpoint
+	search_endpoint = f"{spotify_api_url}/search?q={search}&type={type}"
+	search_resp = requests.get(search_endpoint, headers=auth_header)
+	search_data = json.loads(search_resp.text)
+	
+	return render_template('search_result.html', search=search_data)
 
+# https://api.spotify.com/v1/search?q=Muse&type=track%2Cartist&market=US&limit=10&offset=5
 
 @app.route("/logout")
 def logout():

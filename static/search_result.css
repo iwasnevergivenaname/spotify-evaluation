@@ -1,5 +1,5 @@
 body {
     background-size: cover;
     background: radial-gradient(#ff8c00, #e013a6, purple) no-repeat center;
-    height: 100%;
+    height: 100vh;
 }
