@@ -215,33 +215,21 @@ def show_search_page():
 @app.route('/search', methods=['POST'])
 def search_spotify_api():
 	search = request.form.get('search')
-	if request.form.get('artist') and request.form.get('track'):
-		type = request.form.get('artist') + "," + request.form.get('track')
-	elif request.form.get('artist'):
-		type = request.form.get('artist')
-	elif request.form.get('track'):
-		type = request.form.get('track')
-		
-	print("🍄", search, type)
 	
 	access_token = session['access_token']
 	auth_header = {"Authorization": f"Bearer {access_token}"}
 	
 	# search endpoint
-	search_endpoint = f"{spotify_api_url}/search?q={search}&type={type}"
+	search_endpoint = f"{spotify_api_url}/search?q={search}&type=track,artist"
 	search_resp = requests.get(search_endpoint, headers=auth_header)
 	search_data = json.loads(search_resp.text)
 	
 	return render_template('search_result.html', search=search_data)
 
 
-# https://api.spotify.com/v1/search?q=Muse&type=track%2Cartist&market=US&limit=10&offset=5
-
-@app.route("/logout", methods=["GET", "POST"])
-def logout():
-	access_token = session['access_token']
-	session.pop('access_token')
-	return redirect('/')
+# @app.route("/logout", methods=["GET", "POST"])
+# def logout():
+# 	return redirect('/')
 
 
 @app.route("/about")

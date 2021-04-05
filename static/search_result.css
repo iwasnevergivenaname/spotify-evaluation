@@ -1,5 +1,26 @@
 body {
     background-size: cover;
-    background: radial-gradient(#ff8c00, #e013a6, purple) no-repeat center;
     height: 100vh;
+    background: radial-gradient(#ff8c00, #e013a6, purple) no-repeat fixed center;
+}
+
+.artist-container, .track-container {
+    position: sticky;
+    display: grid;
+    grid-auto-columns: max-content;
+    grid-auto-flow: dense;
+    grid-auto-rows: minmax(100px, auto);
+    grid-gap: 25px;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+.grid-item {
+    grid-row: span 1;
+    grid-column: span 1;
+    height: 320px;
+    width: 320px;
+}
+
+.spotify-img {
+    border-radius: 5px;
 }

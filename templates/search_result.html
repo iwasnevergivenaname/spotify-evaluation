@@ -12,17 +12,41 @@
 
 search results:
 <hr>
-{% if search.artists %}
-{% for artist in search.artists['items'] %}
-<a href="/artist/{{artist.id}}">{{artist.name}}</a><br>
-{% endfor %}
-{% endif %}
+<div class="artist-container">
+    {% if search.artists %}
+    {% for artist in search.artists['items'] %}
 
-{% if search.tracks %}
-{% for track in search.tracks['items'] %}
-<a href="/track/{{track.id}}">{{track.name}} by {{track.album.artists[0].name}}</a><br>
-{% endfor %}
-{% endif %}
+    {% if artist.images[0] %}
+    <a href="/artist/{{artist.id}}">
+    <div class="grid-item" style="background-image: url('{{artist.images[0].url}}')">
+        {% else %}
+        <a href="/artist/{{artist.id}}">
+        <div class="grid-item">
+            {% endif %}
+            {{artist.name}}<br>
+        </div>
+        </a>
+        {% endfor %}
+        {% endif %}
+    </div>
 
+    <br>
+
+    <div class="track-container">
+        {% if search.tracks %}
+        {% for track in search.tracks['items'] %}
+        {% if track.album.images[0] %}
+        <a href="/track/{{track.id}}">
+            <div class="grid-item" style="background-image: url('{{track.album.images[0].url}}')">
+                {% else %}
+                <a href="/track/{{track.id}}">
+                    <div class="grid-item">
+                        {% endif %}
+                        {{track.name}} by {{track.album.artists[0].name}}<br>
+                    </div>
+                </a>
+                {% endfor %}
+                {% endif %}
+            </div>
 </body>
 </html>
