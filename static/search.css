@@ -1,0 +1,9 @@
+body {
+    background-color: #e7dede;
+    display: flex;
+    flex-direction: column;
+    background-image: url("../static/search-venus.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}

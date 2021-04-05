@@ -200,7 +200,7 @@ def show_track_data(track_id):
 
 @app.route('/search')
 def search_spotify_api():
-	return ('search_page.html')
+	return render_template('search_page.html')
 
 
 @app.route("/about")
