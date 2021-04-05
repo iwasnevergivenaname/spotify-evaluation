@@ -203,6 +203,12 @@ def search_spotify_api():
 	return render_template('search_page.html')
 
 
+@app.route("/logout")
+def logout():
+	session.pop('access_token')
+	return redirect('/')
+	
+
 @app.route("/about")
 def about_page():
 	# about page

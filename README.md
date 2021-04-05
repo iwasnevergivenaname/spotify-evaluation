@@ -10,6 +10,7 @@ http://127.0.0.1:5000/callback as the Redirect URI (found when you click the Edi
 
 in your terminal run 
 ```shell script
+python3 -m venv venv
 source venv/bin/activate
 pip3 install requirements.txt
 psql < spotify-evaluation.sql
