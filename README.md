@@ -76,6 +76,12 @@ here is the evolution of the homepage webdesign
 
 using Spotify's green for initial inspiration, i was able to eventually find a match between Spotify and my own taste.
 
+![search page design](https://i.imgur.com/XNwZetM.png)
+first iteration of the search page
+
+![search page results](https://i.imgur.com/lzUYVkO.jpg)
+first layout for search page results 
+
 
 ## routes
 

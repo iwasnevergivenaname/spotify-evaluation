@@ -43,7 +43,7 @@ class Track(db.Model):
 	
 	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 	title = db.Column(db.String, nullable=False)
-	artist_id = db.Column(db.Text, db.ForeignKey('artists.spotify_id'), nullable=False, unique=True)
+	artist_id = db.Column(db.Text, db.ForeignKey('artists.spotify_id'), nullable=False)
 	popularity = db.Column(db.Integer, nullable=False)
 	energy = db.Column(db.Float, nullable=False)
 	dance = db.Column(db.Float, nullable=False)

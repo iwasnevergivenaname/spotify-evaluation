@@ -185,24 +185,23 @@ def show_track_data(track_id):
 	valence = track_features_data['valence']
 	spotify_id = track_features_data['id']
 	
-	# if Artist.query.filter(Artist.spotify_id == artist_id).first():
-		# track = Track(title=title, artist_id=artist_id, popularity=popularity, energy=energy, dance=dance,
-		#               acoustic=acoustic, speech=speech, valence=valence, spotify_id=spotify_id)
-		# db.session.add(track)
-		# db.session.add()
-		# db.session.commit()
-	# else:
-	# 	name = track_data['artists'][0]['name']
-	# 	spotify_id = track_data['artists'][0]['id']
+	if Artist.query.filter(Artist.spotify_id == artist_id).first():
+		track = Track(title=title, artist_id=artist_id, popularity=popularity, energy=energy, dance=dance,
+		              acoustic=acoustic, speech=speech, valence=valence, spotify_id=spotify_id)
+		db.session.add(track)
+		db.session.commit()
+	else:
+		name = track_data['artists'][0]['name']
+		spotify_id = track_data['artists'][0]['id']
 		
-		# artist = Artist(name=name, spotify_id=spotify_id)
-		# db.session.add(artist)
-		# db.session.commit()
-		#
-		# track = Track(title=title, artist_id=artist_id, popularity=popularity, energy=energy, dance=dance,
-		#               acoustic=acoustic, speech=speech, valence=valence, spotify_id=spotify_id)
-		# db.session.add(track)
-		# db.session.commit()
+		artist = Artist(name=name, spotify_id=spotify_id)
+		db.session.add(artist)
+		db.session.commit()
+
+		track = Track(title=title, artist_id=artist_id, popularity=popularity, energy=energy, dance=dance,
+		              acoustic=acoustic, speech=speech, valence=valence, spotify_id=spotify_id)
+		db.session.add(track)
+		db.session.commit()
 	
 	return render_template('track_analysis.html', info=track_features_data, track=track_data)
 
