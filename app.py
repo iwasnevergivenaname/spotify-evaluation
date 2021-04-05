@@ -198,14 +198,22 @@ def show_track_data(track_id):
 	
 	return render_template('track_analysis.html', info=track_features_data, track=track_data)
 
-@app.route('/search')
-def search_spotify_api():
+
+@app.route('/search', methods=['GET'])
+def show_search_page():
 	return render_template('search_page.html')
+
+
+@app.route('/search', methods=['POST'])
+def search_spotify_api():
+	print("🍄", request.form.get('search'))
+	search = request.form.get('search')
+	return render_template('search_result.html', search=search)
 
 
 @app.route("/logout")
 def logout():
-	session.pop('access_token')
+	session.pop('access_token', None)
 	return redirect('/')
 	
 

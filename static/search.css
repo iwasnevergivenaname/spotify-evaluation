@@ -6,4 +6,16 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    position: page;
+}
+
+.search-bar {
+    position: absolute;
+    background-color: transparent;
+    top: 655px;
+    left: 970px;
+    font-size: 40px;
+    border-color: transparent;
+    outline: none;
+    color: #4d3b88;
 }
