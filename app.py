@@ -82,8 +82,8 @@ def callback():
 	expires_in = resp_data["expires_in"]
 	
 	return redirect('/profile')
-	
-	
+
+
 @app.route('/profile')
 def show_user_info():
 	# access token to access api
@@ -92,29 +92,36 @@ def show_user_info():
 	else:
 		access_token = session['access_token']
 		auth_header = {"Authorization": f"Bearer {access_token}"}
-	
+		
 		# profile data
 		user_profile_endpoint = f"{spotify_api_url}/me"
 		profile_resp = requests.get(user_profile_endpoint, headers=auth_header)
 		profile_data = json.loads(profile_resp.text)
-	
+		
+		spotify_id = profile_data['id']
+		
 		# user top artists
 		user_top_artist_endpoint = f"{spotify_api_url}/me/top/artists?limit=5"
 		top_artist_resp = requests.get(user_top_artist_endpoint, headers=auth_header)
 		top_artist_data = json.loads(top_artist_resp.text)
-	
+		
 		# user top tracks
 		user_top_tracks_endpoint = f"{spotify_api_url}/me/top/tracks?limit=25"
 		top_tracks_resp = requests.get(user_top_tracks_endpoint, headers=auth_header)
 		top_tracks_data = json.loads(top_tracks_resp.text)
 		
+		if not User.query.filter(User.spotify_id == spotify_id).first():
+			user = User(spotify_id=spotify_id)
+			db.session.add(user)
+			db.session.commit()
+		
 		return render_template("user_info.html", profile=profile_data, artists=top_artist_data, tracks=top_tracks_data)
-	
-	# user playlist data
-	# playlist_endpoint = f"{profile_data['href']}/playlists"
-	# playlists_resp = requests.get(playlist_endpoint, headers=auth_header)
-	# playlist_data = json.loads(playlists_resp.text)
-	
+
+
+# user playlist data
+# playlist_endpoint = f"{profile_data['href']}/playlists"
+# playlists_resp = requests.get(playlist_endpoint, headers=auth_header)
+# playlist_data = json.loads(playlists_resp.text)
 
 
 @app.route("/artist/<artist_id>")
@@ -148,7 +155,8 @@ def show_artist_data(artist_id):
 		db.session.add(artist)
 		db.session.commit()
 	
-	return render_template('artists_details.html', artist=artist_data, top_tracks=artist_top_tracks_data, related_artist=artist_related_artist_data)
+	return render_template('artists_details.html', artist=artist_data, top_tracks=artist_top_tracks_data,
+	                       related_artist=artist_related_artist_data)
 
 
 @app.route("/track/<track_id>", methods=["GET"])
@@ -177,24 +185,24 @@ def show_track_data(track_id):
 	valence = track_features_data['valence']
 	spotify_id = track_features_data['id']
 	
-	if Artist.query.filter(Artist.spotify_id == artist_id).first():
-		track = Track(title=title, artist_id=artist_id, popularity=popularity, energy=energy, dance=dance,
-		              acoustic=acoustic, speech=speech, valence=valence, spotify_id=spotify_id)
-		db.session.add(track)
-		db.session.add()
-		db.session.commit()
-	else:
-		name = track_data['artists'][0]['name']
-		spotify_id = track_data['artists'][0]['id']
+	# if Artist.query.filter(Artist.spotify_id == artist_id).first():
+		# track = Track(title=title, artist_id=artist_id, popularity=popularity, energy=energy, dance=dance,
+		#               acoustic=acoustic, speech=speech, valence=valence, spotify_id=spotify_id)
+		# db.session.add(track)
+		# db.session.add()
+		# db.session.commit()
+	# else:
+	# 	name = track_data['artists'][0]['name']
+	# 	spotify_id = track_data['artists'][0]['id']
 		
-		artist = Artist(name=name, spotify_id=spotify_id)
-		db.session.add(artist)
-		db.session.commit()
-		
-		track = Track(title=title, artist_id=artist_id, popularity=popularity, energy=energy, dance=dance,
-		              acoustic=acoustic, speech=speech, valence=valence, spotify_id=spotify_id)
-		db.session.add(track)
-		db.session.commit()
+		# artist = Artist(name=name, spotify_id=spotify_id)
+		# db.session.add(artist)
+		# db.session.commit()
+		#
+		# track = Track(title=title, artist_id=artist_id, popularity=popularity, energy=energy, dance=dance,
+		#               acoustic=acoustic, speech=speech, valence=valence, spotify_id=spotify_id)
+		# db.session.add(track)
+		# db.session.commit()
 	
 	return render_template('track_analysis.html', info=track_features_data, track=track_data)
 
@@ -207,7 +215,13 @@ def show_search_page():
 @app.route('/search', methods=['POST'])
 def search_spotify_api():
 	search = request.form.get('search')
-	type = request.form.get('artist')
+	if request.form.get('artist') and request.form.get('track'):
+		type = request.form.get('artist') + "," + request.form.get('track')
+	elif request.form.get('artist'):
+		type = request.form.get('artist')
+	elif request.form.get('track'):
+		type = request.form.get('track')
+		
 	print("🍄", search, type)
 	
 	access_token = session['access_token']
@@ -220,13 +234,15 @@ def search_spotify_api():
 	
 	return render_template('search_result.html', search=search_data)
 
+
 # https://api.spotify.com/v1/search?q=Muse&type=track%2Cartist&market=US&limit=10&offset=5
 
-@app.route("/logout")
+@app.route("/logout", methods=["GET", "POST"])
 def logout():
-	session.pop('access_token', None)
+	access_token = session['access_token']
+	session.pop('access_token')
 	return redirect('/')
-	
+
 
 @app.route("/about")
 def about_page():

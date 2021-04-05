@@ -10,7 +10,19 @@
 </head>
 <body>
 
-    search results: {{search}}
+search results:
+<hr>
+{% if search.artists %}
+{% for artist in search.artists['items'] %}
+<a href="/artist/{{artist.id}}">{{artist.name}}</a><br>
+{% endfor %}
+{% endif %}
+
+{% if search.tracks %}
+{% for track in search.tracks['items'] %}
+<a href="/track/{{track.id}}">{{track.name}} by {{track.album.artists[0].name}}</a><br>
+{% endfor %}
+{% endif %}
 
 </body>
 </html>

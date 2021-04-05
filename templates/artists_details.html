@@ -11,8 +11,8 @@ ARTIST: {{artist.name}} {{artist.popularity}} {{artist.genres}}
 
 TOP TRACKS :
 {% for track in top_tracks.tracks %}
-
-{{track.name}} <br>
+ <a href="/track/{{track.id}}">{{track.name}} </a>
+<br>
 {% endfor %}
 
 <hr>

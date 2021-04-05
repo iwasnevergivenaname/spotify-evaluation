@@ -7,7 +7,7 @@
     <div class="track-details">
 
         <form action="">
-            <h3>{{track.name}} by {{track.artists[0].name}}</h3>
+            <h3>{{track.name}} by <a href="/artist/{{track.artists[0].id}}">{{track.artists[0].name}}</a></h3>
 
             <p>popularity: {{track.popularity}}</p>
             <h6>0 --> 100</h6>

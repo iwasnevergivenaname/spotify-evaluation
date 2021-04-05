@@ -3,54 +3,61 @@
 {% block content %}
 <div class="about">
 
-<p>this app uses your spotify data (artist and tracks you've listened to) to make judgments on you</p>
+    <p>welcome! girls just wanna have fun and i wanted to combine things i like, computer science, visual design,
+        and judging people. <br><br>
 
-<p>judgements are made based off of how Spotify has measured certain audio features. here are the categories as defined by Spotify:</p>
-<dd>acousticness</dd>
-<dt>A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.</dt>
+        <b>how this app uses your data:</b> by logging into your spotify account, you are allowing this app to request
+    information on tracks and artists you listen to. after receiving that data, your personal information beyond your
+        spotify id is not stored. the only thing i'm keeping track of is the data on the actual music itself.
+        <br>
+        <br>
 
-<dd>danceability</dd>
-<dt>Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo,
-    rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.</dt>
+    that data collected by spotify <a href="https://developer.spotify.com/documentation/web-api/reference/#object-audiofeaturesobject">defined by spotify:</a></p>
+<dd><i>acousticness</i></dd>
+<dt>a confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.</dt>
 
-<dd>instrumentalness</dd>
-<dt>Predicts whether a track contains no vocals. “Ooh” and “aah” sounds are treated as instrumental in this context.
-    Rap or spoken word tracks are clearly “vocal”. The closer the instrumentalness value is to 1.0, the greater
-    likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks,
+<dd><i>danceability</i></dd>
+<dt>danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo,
+    rhythm stability, beat strength, and overall regularity. a value of 0.0 is least danceable and 1.0 is most danceable.</dt>
+
+<dd><i>instrumentalness</i></dd>
+<dt>predicts whether a track contains no vocals. “ooh” and “aah” sounds are treated as instrumental in this context.
+    rap or spoken word tracks are clearly “vocal”. the closer the instrumentalness value is to 1.0, the greater
+    likelihood the track contains no vocal content. values above 0.5 are intended to represent instrumental tracks,
     but confidence is higher as the value approaches 1.0.
 </dt>
 
-<dd>loudness</dd>
-<dt>The overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track and are useful
-    for comparing relative loudness of tracks. Loudness is the quality of a sound that is the primary psychological
-    correlate of physical strength (amplitude). Values typical range between -60 and 0 db.
+<dd><i>loudness</i></dd>
+<dt>the overall loudness of a track in decibels (dB). loudness values are averaged across the entire track and are useful
+    for comparing relative loudness of tracks. loudness is the quality of a sound that is the primary psychological
+    correlate of physical strength (amplitude). values typical range between -60 and 0 db.
 </dt>
 
-<dd>duration_ms</dd>
-<dt>The duration of the track in milliseconds.</dt>
+<dd><i>duration_ms</i></dd>
+<dt>the duration of the track in milliseconds.</dt>
 
-<dd>energy</dd>
-<dt>Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically,
-    energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores
-    low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived
+<dd><i>energy</i></dd>
+<dt>energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. typically,
+    energetic tracks feel fast, loud, and noisy. for example, death metal has high energy, while a Bach prelude scores
+    low on the scale. perceptual features contributing to this attribute include dynamic range, perceived
     loudness, timbre, onset rate, and general entropy.
 </dt>
 
-<dd>speechiness</dd>
-<dt>Speechiness detects the presence of spoken words in a track. The more exclusively speech-like the recording
-    (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value. Values above 0.66 describe tracks that
-    are probably made entirely of spoken words. Values between 0.33 and 0.66 describe tracks that may contain both music
-    and speech, either in sections or layered, including such cases as rap music. Values below 0.33 most likely
+<dd><i>speechiness</i></dd>
+<dt>speechiness detects the presence of spoken words in a track. the more exclusively speech-like the recording
+    (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value. values above 0.66 describe tracks that
+    are probably made entirely of spoken words. values between 0.33 and 0.66 describe tracks that may contain both music
+    and speech, either in sections or layered, including such cases as rap music. values below 0.33 most likely
     represent music and other non-speech-like tracks.
 </dt>
 
-<dd>tempo</dd>
-<dt>The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or
+<dd><i>tempo</i></dd>
+<dt>the overall estimated tempo of a track in beats per minute (BPM). in musical terminology, tempo is the speed or
     pace of a given piece and derives directly from the average beat duration.
 </dt>
 
-<dd>valence</dd>
-<dt>A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound
+<dd><i>valence</i></dd>
+<dt>a measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. tracks with high valence sound
     more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative
     (e.g. sad, depressed, angry).
 </dt>
