@@ -26,11 +26,10 @@ class Artist(db.Model):
 	
 	__tablename__ = "artists"
 	
-	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+	id = db.Column(db.String, primary_key=True, nullable=False, unique=True)
 	name = db.Column(db.String, nullable=False, unique=True)
 	popularity = db.Column(db.Integer)
 	image = db.Column(db.String)
-	spotify_id = db.Column(db.String, nullable=False, unique=True)
 	
 	# genres = db.relationship("Genre", backref="artist")
 	tracks = db.relationship('Track')
@@ -41,16 +40,15 @@ class Track(db.Model):
 	
 	__tablename__ = "tracks"
 	
-	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+	id = db.Column(db.String, primary_key=True, nullable=False, unique=True)
 	title = db.Column(db.String, nullable=False)
-	artist_id = db.Column(db.Text, db.ForeignKey('artists.spotify_id'), nullable=False)
+	artist_id = db.Column(db.Text, db.ForeignKey('artists.id'), nullable=False)
 	popularity = db.Column(db.Integer, nullable=False)
 	energy = db.Column(db.Float, nullable=False)
 	dance = db.Column(db.Float, nullable=False)
 	acoustic = db.Column(db.Float, nullable=False)
 	speech = db.Column(db.Float, nullable=False)
 	valence = db.Column(db.Float, nullable=False)
-	spotify_id = db.Column(db.String, nullable=False, unique=True)
 	
 	artist = db.relationship('Artist')
 

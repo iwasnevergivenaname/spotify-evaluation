@@ -150,10 +150,16 @@ def show_artist_data(artist_id):
 	image = artist_data['images'][0]['url']
 	spotify_id = artist_data['id']
 	
-	if not Artist.query.filter(spotify_id == spotify_id).first():
-		artist = Artist(name=name, popularity=popularity, image=image, spotify_id=spotify_id)
+	if not Artist.query.get(spotify_id):
+		artist = Artist(name=name, popularity=popularity, image=image, id=spotify_id)
 		db.session.add(artist)
 		db.session.commit()
+	elif Artist.query.filter(Artist.popularity == popularity).first():
+		pass
+	else:
+		artist_updated = Artist.query.filter_by(id=spotify_id).update(dict(popularity=popularity, image=image))
+		db.session.commit()
+	
 	
 	return render_template('artists_details.html', artist=artist_data, top_tracks=artist_top_tracks_data,
 	                       related_artist=artist_related_artist_data)
@@ -185,21 +191,23 @@ def show_track_data(track_id):
 	valence = track_features_data['valence']
 	spotify_id = track_features_data['id']
 	
-	if Artist.query.filter(Artist.spotify_id == artist_id).first():
+	if Artist.query.get(artist_id) and Track.query.get(spotify_id):
+		pass
+	elif Artist.query.get(artist_id) and not Track.query.get(spotify_id):
 		track = Track(title=title, artist_id=artist_id, popularity=popularity, energy=energy, dance=dance,
-		              acoustic=acoustic, speech=speech, valence=valence, spotify_id=spotify_id)
+		              acoustic=acoustic, speech=speech, valence=valence, id=spotify_id)
 		db.session.add(track)
 		db.session.commit()
 	else:
 		name = track_data['artists'][0]['name']
 		spotify_id = track_data['artists'][0]['id']
 		
-		artist = Artist(name=name, spotify_id=spotify_id)
+		artist = Artist(name=name, id=spotify_id)
 		db.session.add(artist)
 		db.session.commit()
 
 		track = Track(title=title, artist_id=artist_id, popularity=popularity, energy=energy, dance=dance,
-		              acoustic=acoustic, speech=speech, valence=valence, spotify_id=spotify_id)
+		              acoustic=acoustic, speech=speech, valence=valence, id=spotify_id)
 		db.session.add(track)
 		db.session.commit()
 	

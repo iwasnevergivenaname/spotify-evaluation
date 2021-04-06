@@ -2,7 +2,7 @@ body {
     background-color: #e7dede;
     display: flex;
     flex-direction: column;
-    background-image: url("../static/venus-background.png");
+    background-image: url("../static/background.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -15,7 +15,7 @@ a {
 
 .container {
     max-width: 1200px;
-    margin: auto;
+    /*margin: auto;*/
 }
 
 .track-background {
@@ -24,6 +24,7 @@ a {
     background-attachment: fixed;
     width: 1200px;
     opacity: 0.7;
+    margin: 0 auto;
 }
 
 .track-details {
@@ -50,11 +51,15 @@ a {
     grid-auto-rows: minmax(100px, auto);
     grid-gap: 25px;
     grid-template-columns: repeat(5, 1fr);
+    margin: 0 auto;
 }
 
 .grid-item {
     grid-row: span 1;
     grid-column: span 1;
+    height: 320px;
+    width: 320px;
+    padding-top: 15vh;
 }
 
 .spotify-img {
@@ -64,5 +69,4 @@ a {
 .about {
     background-color: rgba(146, 19, 167, 0.4);
     padding: 15px;
-
 }
