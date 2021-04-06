@@ -2,20 +2,25 @@ body {
     background-color: #e7dede;
     display: flex;
     flex-direction: column;
-    background-image: url("../static/search-venus.png");
+    background-image: url("../static/search.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    position: page;
+    position: absolute;
 }
 
 .search-bar {
-    position: absolute;
+    margin: 0 auto;
+    position: fixed;
     background-color: transparent;
-    top: 655px;
-    left: 970px;
+    top: 47vh;
+    left: 75vh;
     font-size: 40px;
     border-color: transparent;
     outline: none;
     color: #4d3b88;
+}
+
+.wrapper {
+    position: fixed;
 }
