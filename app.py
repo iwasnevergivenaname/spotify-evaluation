@@ -117,156 +117,156 @@
 # 			db.session.commit()
 #
 # 		return render_template("user_info.html", profile=profile_data, artists=top_artist_data, tracks=top_tracks_data)
-#
-#
-# # user playlist data
-# # playlist_endpoint = f"{profile_data['href']}/playlists"
-# # playlists_resp = requests.get(playlist_endpoint, headers=auth_header)
-# # playlist_data = json.loads(playlists_resp.text)
-#
-#
-# @app.route("/artist/<artist_id>")
-# def show_artist_data(artist_id):
-# 	# access token to access api
-# 	access_token = session['access_token']
-# 	auth_header = {"Authorization": f"Bearer {access_token}"}
-#
-# 	# artist
-# 	artist_endpoint = f"{spotify_api_url}/artists/{artist_id}"
-# 	artist_resp = requests.get(artist_endpoint, headers=auth_header)
-# 	artist_data = json.loads(artist_resp.text)
-#
-# 	# artist top tracks
-# 	artist_top_tracks_endpoint = f"{spotify_api_url}/artists/{artist_id}/top-tracks?market=US"
-# 	artist_top_tracks_resp = requests.get(artist_top_tracks_endpoint, headers=auth_header)
-# 	artist_top_tracks_data = json.loads(artist_top_tracks_resp.text)
-#
-# 	# artists related artist
-# 	artist_related_artist_endpoint = f"{spotify_api_url}/artists/{artist_id}/related-artists"
-# 	artist_related_artist_resp = requests.get(artist_related_artist_endpoint, headers=auth_header)
-# 	artist_related_artist_data = json.loads(artist_related_artist_resp.text)
-#
-# 	name = artist_data['name']
-# 	popularity = artist_data['popularity']
-# 	image = artist_data['images'][0]['url']
-# 	spotify_id = artist_data['id']
-#
-# 	if not Artist.query.get(spotify_id):
-# 		artist = Artist(name=name, popularity=popularity, image=image, id=spotify_id)
-# 		db.session.add(artist)
-# 		db.session.commit()
-# 	elif Artist.query.filter(Artist.popularity == popularity).first():
-# 		pass
-# 	else:
-# 		artist_updated = Artist.query.filter_by(id=spotify_id).update(dict(popularity=popularity, image=image))
-# 		db.session.commit()
-#
-#
-# 	return render_template('artists_details.html', artist=artist_data, top_tracks=artist_top_tracks_data,
-# 	                       related_artist=artist_related_artist_data)
-#
-#
-# @app.route("/track/<track_id>", methods=["GET"])
-# def show_track_data(track_id):
-# 	# access token to access api
-# 	access_token = session['access_token']
-# 	auth_header = {"Authorization": f"Bearer {access_token}"}
-#
-# 	# track
-# 	track_endpoint = f"{spotify_api_url}/tracks/{track_id}"
-# 	track_resp = requests.get(track_endpoint, headers=auth_header)
-# 	track_data = json.loads(track_resp.text)
-#
-# 	# track features like popularity and valence
-# 	track_features_endpoint = f"{spotify_api_url}/audio-features/{track_id}"
-# 	track_features_resp = requests.get(track_features_endpoint, headers=auth_header)
-# 	track_features_data = json.loads(track_features_resp.text)
-#
-# 	print("🧃", track_features_data)
-#
-# 	default = 0.00
-#
-# 	title = track_data['name']
-# 	artist_id = track_data['artists'][0]['id']
-# 	popularity = track_data['popularity']
-#
-# 	if not track_features_data.get('energy'):
-# 		energy = default
-# 	else:
-# 		energy = track_features_data['energy']
-#
-# 	if not track_features_data.get('danceability'):
-# 		dance = default
-# 	else:
-# 		dance = track_features_data['danceability']
-#
-# 	if not track_features_data.get('acousticness'):
-# 		acoustic = default
-# 	else:
-# 		acoustic = track_features_data['acousticness']
-#
-# 	if not track_features_data.get('speechiness'):
-# 		speech = default
-# 	else:
-# 		speech = track_features_data['speechiness']
-#
-# 	if not track_features_data.get('valence'):
-# 		valence = default
-# 	else:
-# 		valence = track_features_data['valence']
-#
-# 	spotify_id = track_features_data['id']
-#
-#
-# 	if Artist.query.get(artist_id) and Track.query.get(spotify_id):
-# 		pass
-# 	elif Artist.query.get(artist_id) and not Track.query.get(spotify_id):
-# 		track = Track(title=title, artist_id=artist_id, popularity=popularity, energy=energy, dance=dance,
-# 		              acoustic=acoustic, speech=speech, valence=valence, id=spotify_id)
-# 		db.session.add(track)
-# 		db.session.commit()
-# 	else:
-# 		name = track_data['artists'][0]['name']
-# 		spotify_id = track_data['artists'][0]['id']
-#
-# 		artist = Artist(name=name, id=spotify_id)
-# 		db.session.add(artist)
-# 		db.session.commit()
-#
-# 		track = Track(title=title, artist_id=artist_id, popularity=popularity, energy=energy, dance=dance,
-# 		              acoustic=acoustic, speech=speech, valence=valence, id=spotify_id)
-# 		db.session.add(track)
-# 		db.session.commit()
-#
-# 	return render_template('track_analysis.html', info=track_features_data, track=track_data)
-#
-#
-# @app.route('/search', methods=['GET'])
-# def show_search_page():
-# 	return render_template('search_page.html')
-#
-#
-# @app.route('/search', methods=['POST'])
-# def search_spotify_api():
-# 	search = request.form.get('search')
-#
-# 	access_token = session['access_token']
-# 	auth_header = {"Authorization": f"Bearer {access_token}"}
-#
-# 	# search endpoint
-# 	search_endpoint = f"{spotify_api_url}/search?q={search}&type=track,artist"
-# 	search_resp = requests.get(search_endpoint, headers=auth_header)
-# 	search_data = json.loads(search_resp.text)
-#
-# 	return render_template('search_result.html', search=search_data)
-#
-#
-# # @app.route("/logout", methods=["GET", "POST"])
-# # def logout():
-# # 	return redirect('/')
-#
-#
-# @app.route("/about")
-# def about_page():
-# 	# about page
-# 	return render_template("about.html")
+
+
+# user playlist data
+# playlist_endpoint = f"{profile_data['href']}/playlists"
+# playlists_resp = requests.get(playlist_endpoint, headers=auth_header)
+# playlist_data = json.loads(playlists_resp.text)
+
+
+@app.route("/artist/<artist_id>")
+def show_artist_data(artist_id):
+	# access token to access api
+	access_token = session['access_token']
+	auth_header = {"Authorization": f"Bearer {access_token}"}
+
+	# artist
+	artist_endpoint = f"{spotify_api_url}/artists/{artist_id}"
+	artist_resp = requests.get(artist_endpoint, headers=auth_header)
+	artist_data = json.loads(artist_resp.text)
+
+	# artist top tracks
+	artist_top_tracks_endpoint = f"{spotify_api_url}/artists/{artist_id}/top-tracks?market=US"
+	artist_top_tracks_resp = requests.get(artist_top_tracks_endpoint, headers=auth_header)
+	artist_top_tracks_data = json.loads(artist_top_tracks_resp.text)
+
+	# artists related artist
+	artist_related_artist_endpoint = f"{spotify_api_url}/artists/{artist_id}/related-artists"
+	artist_related_artist_resp = requests.get(artist_related_artist_endpoint, headers=auth_header)
+	artist_related_artist_data = json.loads(artist_related_artist_resp.text)
+
+	name = artist_data['name']
+	popularity = artist_data['popularity']
+	image = artist_data['images'][0]['url']
+	spotify_id = artist_data['id']
+
+	if not Artist.query.get(spotify_id):
+		artist = Artist(name=name, popularity=popularity, image=image, id=spotify_id)
+		db.session.add(artist)
+		db.session.commit()
+	elif Artist.query.filter(Artist.popularity == popularity).first():
+		pass
+	else:
+		artist_updated = Artist.query.filter_by(id=spotify_id).update(dict(popularity=popularity, image=image))
+		db.session.commit()
+
+
+	return render_template('artists_details.html', artist=artist_data, top_tracks=artist_top_tracks_data,
+	                       related_artist=artist_related_artist_data)
+
+
+@app.route("/track/<track_id>", methods=["GET"])
+def show_track_data(track_id):
+	# access token to access api
+	access_token = session['access_token']
+	auth_header = {"Authorization": f"Bearer {access_token}"}
+
+	# track
+	track_endpoint = f"{spotify_api_url}/tracks/{track_id}"
+	track_resp = requests.get(track_endpoint, headers=auth_header)
+	track_data = json.loads(track_resp.text)
+
+	# track features like popularity and valence
+	track_features_endpoint = f"{spotify_api_url}/audio-features/{track_id}"
+	track_features_resp = requests.get(track_features_endpoint, headers=auth_header)
+	track_features_data = json.loads(track_features_resp.text)
+
+	print("🧃", track_features_data)
+
+	default = 0.00
+
+	title = track_data['name']
+	artist_id = track_data['artists'][0]['id']
+	popularity = track_data['popularity']
+
+	if not track_features_data.get('energy'):
+		energy = default
+	else:
+		energy = track_features_data['energy']
+
+	if not track_features_data.get('danceability'):
+		dance = default
+	else:
+		dance = track_features_data['danceability']
+
+	if not track_features_data.get('acousticness'):
+		acoustic = default
+	else:
+		acoustic = track_features_data['acousticness']
+
+	if not track_features_data.get('speechiness'):
+		speech = default
+	else:
+		speech = track_features_data['speechiness']
+
+	if not track_features_data.get('valence'):
+		valence = default
+	else:
+		valence = track_features_data['valence']
+
+	spotify_id = track_features_data['id']
+
+
+	if Artist.query.get(artist_id) and Track.query.get(spotify_id):
+		pass
+	elif Artist.query.get(artist_id) and not Track.query.get(spotify_id):
+		track = Track(title=title, artist_id=artist_id, popularity=popularity, energy=energy, dance=dance,
+		              acoustic=acoustic, speech=speech, valence=valence, id=spotify_id)
+		db.session.add(track)
+		db.session.commit()
+	else:
+		name = track_data['artists'][0]['name']
+		spotify_id = track_data['artists'][0]['id']
+
+		artist = Artist(name=name, id=spotify_id)
+		db.session.add(artist)
+		db.session.commit()
+
+		track = Track(title=title, artist_id=artist_id, popularity=popularity, energy=energy, dance=dance,
+		              acoustic=acoustic, speech=speech, valence=valence, id=spotify_id)
+		db.session.add(track)
+		db.session.commit()
+
+	return render_template('track_analysis.html', info=track_features_data, track=track_data)
+
+
+@app.route('/search', methods=['GET'])
+def show_search_page():
+	return render_template('search_page.html')
+
+
+@app.route('/search', methods=['POST'])
+def search_spotify_api():
+	search = request.form.get('search')
+
+	access_token = session['access_token']
+	auth_header = {"Authorization": f"Bearer {access_token}"}
+
+	# search endpoint
+	search_endpoint = f"{spotify_api_url}/search?q={search}&type=track,artist"
+	search_resp = requests.get(search_endpoint, headers=auth_header)
+	search_data = json.loads(search_resp.text)
+
+	return render_template('search_result.html', search=search_data)
+
+
+# @app.route("/logout", methods=["GET", "POST"])
+# def logout():
+# 	return redirect('/')
+
+
+@app.route("/about")
+def about_page():
+	# about page
+	return render_template("about.html")

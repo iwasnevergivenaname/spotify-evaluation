@@ -101,5 +101,6 @@ first layout for search page results
 ## thank you
 
 ## references 
-[Spotify Flask Auth Example by drshrey](spotify-flask-auth-example)
+[Spotify Flask Auth Example by drshrey](spotify-flask-auth-example)<br>
+[Flask Blueprint Tutorial by hackersandslackers](https://github.com/hackersandslackers/flask-blueprint-tutorial)
 

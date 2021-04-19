@@ -16,8 +16,6 @@ def home():
 	# products = fetch_products(app)
 	return render_template(
 		'home.jinja2',
-		title='Flask Blueprint Demo',
-		subtitle='Demonstration of Flask blueprints in action.',
 		template='home-template',
 		# products=products
 	)
