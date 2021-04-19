@@ -5,7 +5,7 @@ import json
 from flask_sqlalchemy import SQLAlchemy
 from models import User, connect_db, db
 
-# Blueprint Configuration
+# blueprint configuration
 profile_bp = Blueprint(
 	'profile_bp', __name__,
 	template_folder='templates',
