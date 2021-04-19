@@ -17,6 +17,7 @@ def create_app():
         from .search import search
         from .track_details import track_details
         from .artist_details import artist_details
+        from .about import about
 
         # register blueprints
         app.register_blueprint(home.home_bp)
@@ -25,5 +26,6 @@ def create_app():
         app.register_blueprint(search.search_bp)
         app.register_blueprint(track_details.track_details_bp)
         app.register_blueprint(artist_details.artist_details_bp)
+        app.register_blueprint(about.about_bp)
 
         return app
