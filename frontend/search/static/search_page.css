@@ -2,7 +2,7 @@ body {
     background-color: #7e2d2d;
     display: flex;
     flex-direction: column;
-    background-image: url("../static/search.png");
+    /*background-image: url("../static/search.png");*/
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;

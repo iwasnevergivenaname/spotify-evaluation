@@ -1,12 +1,13 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+import config
 
 
 def create_app():
     """create flask application"""
     app = Flask(__name__, instance_relative_config=False)
     # app.config.from_object('config.Config')
-    # app.config.from_object(config)
+    app.config.from_object(config)
     db = SQLAlchemy(app)
 
     with app.app_context():
