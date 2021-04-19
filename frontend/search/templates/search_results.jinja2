@@ -1,0 +1,44 @@
+{%extends 'layout.jinja2'%}
+
+{%block content%}
+search results:
+<hr>
+<div class="artist-container">
+    {% if search.artists %}
+    {% for artist in search.artists['items'] %}
+
+    {% if artist.images[0] %}
+    <a href="/artist/{{artist.id}}">
+        <div class="grid-item" style="background-image: url('{{artist.images[0].url}}')">
+            {% else %}
+            <a href="/artist/{{artist.id}}">
+                <div class="grid-item">
+                    {% endif %}
+                    {{artist.name}}<br>
+                </div>
+            </a>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </a></div>
+<br>
+
+<div class="track-container">
+    {% if search.tracks %}
+    {% for track in search.tracks['items'] %}
+    {% if track.album.images[0] %}
+    <a href="/track/{{track.id}}">
+        <div class="grid-item" style="background-image: url('{{track.album.images[0].url}}')">
+            {% else %}
+            <a href="/track/{{track.id}}">
+                <div class="grid-item">
+                    {% endif %}
+                    {{track.name}} by {{track.album.artists[0].name}}<br>
+                </div>
+            </a>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </a></div>
+
+{%endblock%}

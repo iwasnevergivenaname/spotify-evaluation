@@ -14,7 +14,7 @@ def create_app():
         from .home import home
         from .profile import profile
         from .spotify_auth import spotify_auth
-        # from .search import routes
+        from .search import search
         from .track_details import track_details
         from .artist_details import artist_details
 
@@ -22,7 +22,7 @@ def create_app():
         app.register_blueprint(home.home_bp)
         app.register_blueprint(profile.profile_bp)
         app.register_blueprint(spotify_auth.spotify_auth_bp)
-        # app.register_blueprint(search.search_bp)
+        app.register_blueprint(search.search_bp)
         app.register_blueprint(track_details.track_details_bp)
         app.register_blueprint(artist_details.artist_details_bp)
 
