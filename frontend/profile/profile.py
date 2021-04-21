@@ -36,7 +36,6 @@ def profile():
 		user_profile_endpoint = f"{spotify_api_url}/me"
 		profile_resp = requests.get(user_profile_endpoint, headers=auth_header)
 		profile_data = json.loads(profile_resp.text)
-
 		spotify_id = profile_data['id']
 
 		# user top artists
