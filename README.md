@@ -54,6 +54,9 @@ added in some conditions about popularity (ie relatively unloved songs or overpl
 (the relationship between low energy and more happy music specifically) to make sure my alignments are as accurate to my
  overly opinionated alignments as possible.
 
+low = 0.0 - 0.39 <br>
+mid = 0.4 - 0.69 <br>
+high = .7 - 1
 
 |      | Lawful | Neutral | Chaotic |
 |------|-----|--------|-------
@@ -65,7 +68,7 @@ added in some conditions about popularity (ie relatively unloved songs or overpl
 |      | mid valence|              | low pop | 
 | Evil | low dance | mid dance     | low energy |
 |      | high pop |  low energy    |   high valence   |
-|      | mid valence |  hi valence | low pop |
+|      | mid valence |  high valence | low pop |
 |      |  |  | high dance |
 
 
