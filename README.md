@@ -47,19 +47,26 @@ Acousticness, Speechiness, and Valence.
 low range will be considered anything below 30%, mid range is 30%-60%, and high range is 60%+ 
 (speechiness will be treated slightly differently since it's an outlier)
 
-my arbitrary alignment is as follows:
+as i was thinking about the moral alignments, i realized they boil down to action and motive. that's why you can have 
+lawful (action) evil (motive) or chaotic (action) good (motive). now to apply that to the data i have available: out of 
+all the categories danceability seems to be the best match for action and valence to motive. proceeding with that, i also
+added in some conditions about popularity (ie relatively unloved songs or overplayed tracks) and energy 
+(the relationship between low energy and more happy music specifically) to make sure my alignments are as accurate to my
+ overly opinionated alignments as possible.
+
 
 |      | Lawful | Neutral | Chaotic |
 |------|-----|--------|-------
-| Good | high dance | high dance  | high dance | 
-|  | high valence | mid range everything else  | high energy| 
-|  | |  | low pop | 
-| Neutral | high acoustic | mid range everything | high energy | 
-|  | low everything else | | mid valence | 
-|  | |  | low pop | 
-| Evil | low dance | low everything | high energy |
-| | high acoustic |  | low dance |
-| | high speech |  | low pop |
+| Good | low dance | mid dance     | high dance | 
+|      | low valence | low valence | low pop | 
+|      | high pop |                |  low valence  | 
+| Neutral | low dance | mid dance  | high dance | 
+|      | low valence | mid valence | mid valence | 
+|      | mid valence|              | low pop | 
+| Evil | low dance | mid dance     | low energy |
+|      | high pop |  low energy    |   high valence   |
+|      | mid valence |  hi valence | low pop |
+|      |  |  | high dance |
 
 
 

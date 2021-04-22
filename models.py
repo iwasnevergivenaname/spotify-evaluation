@@ -72,3 +72,6 @@ class Evaluation(db.Model):
 	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 	# user_id = db.Column(db.ForeignKey('user.id'), nullable=False)
 	result = db.Column(db.String, nullable=False)
+	# track_name
+	
+	# relate the evelaution to the track
