@@ -56,7 +56,7 @@ added in some conditions about popularity (ie relatively unloved songs or overpl
 
 low = 0.0 - 0.39 <br>
 mid = 0.4 - 0.69 <br>
-high = .7 - 1
+high = 0.7 - 1.00
 
 |      | Lawful | Neutral | Chaotic |
 |------|-----|--------|-------
