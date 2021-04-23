@@ -47,9 +47,11 @@ def profile():
 		user_top_tracks_endpoint = f"{spotify_api_url}/me/top/tracks?limit=25"
 		top_tracks_resp = requests.get(user_top_tracks_endpoint, headers=auth_header)
 		top_tracks_data = json.loads(top_tracks_resp.text)
-
+		
+		session['curr_user'] = spotify_id
 		if not User.query.filter(User.spotify_id == spotify_id).first():
 			user = User(spotify_id=spotify_id)
+			
 			db.session.add(user)
 			db.session.commit()
 

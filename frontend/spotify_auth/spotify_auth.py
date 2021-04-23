@@ -4,7 +4,6 @@ from jinja2 import TemplateNotFound
 import requests
 from urllib.parse import quote
 import os
-# from models import db, connect_db, User, Artist, Track, Genre, Evaluation
 from flask import current_app as app
 
 # blueprint configuration
@@ -28,8 +27,8 @@ redirect_uri = os.environ.get("REDIRECT_URI")
 # specify what permissions you need based on endpoints
 scope = "user-read-private user-read-email user-top-read playlist-modify-public playlist-modify-private"
 state = ""
-SHOW_DIALOG_bool = True
-SHOW_DIALOG_str = str(SHOW_DIALOG_bool).lower()
+# SHOW_DIALOG_bool = True
+# SHOW_DIALOG_str = str(SHOW_DIALOG_bool).lower()
 
 app.config["SECRET_KEY"] = "secrets secrets are no fun"
 

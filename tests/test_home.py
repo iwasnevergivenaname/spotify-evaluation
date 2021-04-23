@@ -1,3 +1,5 @@
+"""python3 -m unittest tests/test_home.py """
+
 from wsgi import app
 from flask import session
 from unittest import TestCase

@@ -64,13 +64,13 @@ def track_details(track_id):
 	else:
 		valence = track_features_data['valence']
 	
-	spotify_id = track_features_data['id']
+	# spotify_id = track_features_data['id']
 	
-	if Artist.query.get(artist_id) and Track.query.get(spotify_id):
+	if Artist.query.get(artist_id) and Track.query.get(track_id):
 		pass
-	elif Artist.query.get(artist_id) and not Track.query.get(spotify_id):
+	elif Artist.query.get(artist_id) and not Track.query.get(track_id):
 		track = Track(title=title, artist_id=artist_id, popularity=popularity, energy=energy, dance=dance,
-		              acoustic=acoustic, speech=speech, valence=valence, id=spotify_id)
+		              acoustic=acoustic, speech=speech, valence=valence, id=track_id)
 		db.session.add(track)
 		db.session.commit()
 	else:
@@ -82,7 +82,7 @@ def track_details(track_id):
 		db.session.commit()
 		
 		track = Track(title=title, artist_id=artist_id, popularity=popularity, energy=energy, dance=dance,
-		              acoustic=acoustic, speech=speech, valence=valence, id=spotify_id)
+		              acoustic=acoustic, speech=speech, valence=valence, id=track_id)
 		db.session.add(track)
 		db.session.commit()
 	

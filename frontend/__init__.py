@@ -6,7 +6,6 @@ import config
 def create_app():
 	"""create flask application"""
 	app = Flask(__name__, instance_relative_config=False)
-	# app.config.from_object('config.Config')
 	app.config.from_object(config)
 	db = SQLAlchemy(app)
 	
@@ -21,6 +20,7 @@ def create_app():
 		from .about import about
 		from .predict import predict
 		from .evaluation import evaluation
+		from .error import error
 		
 		# register blueprints
 		app.register_blueprint(home.home_bp)
@@ -32,5 +32,6 @@ def create_app():
 		app.register_blueprint(about.about_bp)
 		app.register_blueprint(predict.predict_bp)
 		app.register_blueprint(evaluation.evaluation_bp)
+		app.register_blueprint(error.error_bp)
 		
 		return app

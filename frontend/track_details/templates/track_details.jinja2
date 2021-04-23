@@ -7,7 +7,7 @@
 
     <div class="track-details">
 
-        <form action="/predict" method="POST">
+        <form action="/predict/{{info.id}}" method="POST">
             <h3><input type="hidden"  name="title" value="{{track.name}}">{{track.name}} by <a href="/artist/{{track.artists[0].id}}">{{track.artists[0].name}}</a></h3>
 
             <p>popularity: <input type="hidden" name="popularity" value="{{track.popularity}}">{{track.popularity}}</p>
@@ -28,7 +28,8 @@
             <p>valence: <input type="hidden" name="valence" value="{{info.valence}}">{{info.valence}}</p>
             <h6>0.0 --> 1.0</h6>
             <h6>sad --> happy</h6>
-            <input type="submit" value="predict">
+            <input type="hidden" name="id" value="">
+            <input type="submit" value="judge me">
         </form>
 
     </div>

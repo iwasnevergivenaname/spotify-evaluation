@@ -60,8 +60,8 @@ high = 0.7 - 1.00
 
 |      | Lawful | Neutral | Chaotic |
 |------|-----|--------|-------
-| Good | low dance | mid dance     | high dance | 
-|      | low valence | low valence | low pop | 
+| Good | high dance | mid dance     | high dance | 
+|      | high valence | low valence | low pop | 
 |      | high pop |                |  low valence  | 
 | Neutral | low dance | mid dance  | high dance | 
 |      | low valence | mid valence | mid valence | 
@@ -69,7 +69,7 @@ high = 0.7 - 1.00
 | Evil | low dance | mid dance     | low energy |
 |      | high pop |  low energy    |   high valence   |
 |      | mid valence |  high valence | low pop |
-|      |  |  | high dance |
+|      | low energy |  | high dance |
 
 
 
@@ -113,6 +113,6 @@ first layout for search page results
 ## thank you
 
 ## references 
-[Spotify Flask Auth Example by drshrey](spotify-flask-auth-example)<br>
+[Spotify Flask Auth Example by drshrey](https://github.com/drshrey/spotify-flask-auth-example)<br>
 [Flask Blueprint Tutorial by hackersandslackers](https://github.com/hackersandslackers/flask-blueprint-tutorial)
 

@@ -19,6 +19,7 @@ class User(db.Model):
 	spotify_id = db.Column(db.String, nullable=False, unique=True)
 	
 	# genres = db.relationship("Genre", backref="user")
+	evaluations = db.relationship('Evaluation')
 
 
 class Artist(db.Model):
@@ -51,6 +52,21 @@ class Track(db.Model):
 	valence = db.Column(db.Float, nullable=False)
 	
 	artist = db.relationship('Artist')
+	evaluation = db.relationship('Evaluation')
+
+
+class Evaluation(db.Model):
+	"""Evaluation"""
+	
+	__tablename__ = "evaluations"
+	
+	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+	user_id = db.Column(db.Text, db.ForeignKey('users.spotify_id'), nullable=False)
+	result = db.Column(db.String)
+	track_id = db.Column(db.Text, db.ForeignKey('tracks.id'), nullable=False)
+	
+	user = db.relationship('User')
+	track = db.relationship('Track')
 
 
 class Genre(db.Model):
@@ -60,18 +76,5 @@ class Genre(db.Model):
 	
 	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 	title = db.Column(db.String, nullable=False, unique=True)
-	# artist_id = db.Column(db.ForeignKey('artist.id'), nullable=False)
-	# user_id = db.Column(db.ForeignKey('user.id'), nullable=False)
-
-
-class Evaluation(db.Model):
-	"""Evaluation"""
-	
-	__tablename__ = "evaluations"
-	
-	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-	# user_id = db.Column(db.ForeignKey('user.id'), nullable=False)
-	result = db.Column(db.String, nullable=False)
-	# track_name
-	
-	# relate the evelaution to the track
+# artist_id = db.Column(db.ForeignKey('artist.id'), nullable=False)
+# user_id = db.Column(db.ForeignKey('user.id'), nullable=False)
