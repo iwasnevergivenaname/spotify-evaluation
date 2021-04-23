@@ -2,33 +2,32 @@
 
 {% block content %}
 
-<div class="track-background" style="background-image: url('{{track.album.images[0].url}}')">
+<div class="track-background" style="background-image: url('{{track.image}}')">
 
 
     <div class="track-details">
 
-        <form action="/predict/{{info.id}}" method="POST">
-            <h3><input type="hidden"  name="title" value="{{track.name}}">{{track.name}} by <a href="/artist/{{track.artists[0].id}}">{{track.artists[0].name}}</a></h3>
+        <form action="/predict/{{track.id}}" method="POST">
+            <h3><input type="hidden"  name="title" value="{{track.title}}">{{track.title}} by <a href="/artist/{{artist.id}}">{{artist.name}}</a></h3>
 
             <p>popularity: <input type="hidden" name="popularity" value="{{track.popularity}}">{{track.popularity}}</p>
             <h6>0 --> 100</h6>
 
-            <p>danceability: <input type="hidden" name="danceability" value="{{info.danceability}}">{{info.danceability}}</p>
+            <p>danceability: <input type="hidden" name="danceability" value="{{track.danceability}}">{{track.danceability}}</p>
             <h6>0.0 --> 1.0</h6>
 
-            <p>energy: <input type="hidden" name="energy" value="{{info.energy}}">{{info.energy}}</p>
+            <p>energy: <input type="hidden" name="energy" value="{{track.energy}}">{{track.energy}}</p>
             <h6>0.0 --> 1.0</h6>
 
-            <p>speechiness: <input type="hidden" name="speechiness" value="{{info.speechiness}}">{{info.speechiness}}</p>
+            <p>speechiness: <input type="hidden" name="speechiness" value="{{track.speechiness}}">{{track.speechiness}}</p>
             <h6>0.0 --> 1.0</h6>
 
-            <p>acousticness: <input type="hidden" name="acousticness" value="{{info.acousticness}}">{{info.acousticness}}</p>
+            <p>acousticness: <input type="hidden" name="acousticness" value="{{track.acousticness}}">{{track.acousticness}}</p>
             <h6>0.0 --> 1.0</h6>
 
-            <p>valence: <input type="hidden" name="valence" value="{{info.valence}}">{{info.valence}}</p>
+            <p>valence: <input type="hidden" name="valence" value="{{track.valence}}">{{track.valence}}</p>
             <h6>0.0 --> 1.0</h6>
             <h6>sad --> happy</h6>
-            <input type="hidden" name="id" value="">
             <input type="submit" value="judge me">
         </form>
 

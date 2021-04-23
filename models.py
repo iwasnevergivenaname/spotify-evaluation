@@ -50,6 +50,7 @@ class Track(db.Model):
 	acoustic = db.Column(db.Float, nullable=False)
 	speech = db.Column(db.Float, nullable=False)
 	valence = db.Column(db.Float, nullable=False)
+	image = db.Column(db.String)
 	
 	artist = db.relationship('Artist')
 	evaluation = db.relationship('Evaluation')

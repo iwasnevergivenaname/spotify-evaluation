@@ -5,6 +5,7 @@ import json
 from flask_sqlalchemy import SQLAlchemy
 from models import Track, Artist, connect_db, db
 
+
 # blueprint configuration
 track_details_bp = Blueprint(
 	'track_details_bp', __name__,
@@ -19,6 +20,12 @@ spotify_api_url = f"{spotify_api_base}/{API_VERSION}"
 
 @track_details_bp.route("/track/<track_id>", methods=["GET"])
 def track_details(track_id):
+	if Track.query.get(track_id):
+		track = Track.query.get(track_id)
+		artist = Artist.query.get(track.artist_id)
+		
+		return render_template('track_details.jinja2', track=track, artist=artist)
+	
 	# access token to access api
 	access_token = session['access_token']
 	auth_header = {"Authorization": f"Bearer {access_token}"}
@@ -63,14 +70,17 @@ def track_details(track_id):
 		valence = default
 	else:
 		valence = track_features_data['valence']
+		
+	if track_data['album']['images'][0]['url']:
+		image = track_data['album']['images'][0]['url']
+	else:
+		image = '/static/placeholder.png'
 	
-	# spotify_id = track_features_data['id']
-	
-	if Artist.query.get(artist_id) and Track.query.get(track_id):
-		pass
-	elif Artist.query.get(artist_id) and not Track.query.get(track_id):
+
+	if Artist.query.get(artist_id) and not Track.query.get(track_id):
 		track = Track(title=title, artist_id=artist_id, popularity=popularity, energy=energy, dance=dance,
-		              acoustic=acoustic, speech=speech, valence=valence, id=track_id)
+		              acoustic=acoustic, speech=speech, valence=valence, id=track_id, image=image)
+	
 		db.session.add(track)
 		db.session.commit()
 	else:
@@ -82,8 +92,10 @@ def track_details(track_id):
 		db.session.commit()
 		
 		track = Track(title=title, artist_id=artist_id, popularity=popularity, energy=energy, dance=dance,
-		              acoustic=acoustic, speech=speech, valence=valence, id=track_id)
+		              acoustic=acoustic, speech=speech, valence=valence, id=track_id, image=image)
+	
 		db.session.add(track)
 		db.session.commit()
+	print("🦋🦋🦋🦋🦋🦋🦋🦋 after an api call 🦋🦋🦋🦋🦋🦋🦋🦋🦋")
 	
-	return render_template('track_details.jinja2', info=track_features_data, track=track_data)
+	return render_template('track_details.jinja2', track=track, artist=artist)
