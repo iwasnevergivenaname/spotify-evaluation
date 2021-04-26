@@ -56,6 +56,8 @@ def track_details(track_id):
 	else:
 		dance = track_features_data['danceability']
 	
+	print(dance)
+	
 	if not track_features_data.get('acousticness'):
 		acoustic = default
 	else:
@@ -75,11 +77,11 @@ def track_details(track_id):
 		image = track_data['album']['images'][0]['url']
 	else:
 		image = '/static/placeholder.png'
-	
 
 	if Artist.query.get(artist_id) and not Track.query.get(track_id):
 		track = Track(title=title, artist_id=artist_id, popularity=popularity, energy=energy, dance=dance,
 		              acoustic=acoustic, speech=speech, valence=valence, id=track_id, image=image)
+		artist = Artist.query.get(artist_id)
 	
 		db.session.add(track)
 		db.session.commit()
@@ -96,6 +98,5 @@ def track_details(track_id):
 	
 		db.session.add(track)
 		db.session.commit()
-	print("🦋🦋🦋🦋🦋🦋🦋🦋 after an api call 🦋🦋🦋🦋🦋🦋🦋🦋🦋")
 	
 	return render_template('track_details.jinja2', track=track, artist=artist)

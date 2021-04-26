@@ -1,10 +1,7 @@
-from flask import redirect, Blueprint, session, request, jsonify, render_template
+from flask import Blueprint, session, request, render_template, redirect
 from flask import current_app as app
-from models import Track, Artist, Evaluation, connect_db, db
+from models import Evaluation, Track, connect_db, db
 from flask_sqlalchemy import SQLAlchemy
-import requests
-import json
-
 
 # blueprint configuration
 evaluation_bp = Blueprint(
@@ -27,11 +24,25 @@ def resp():
 		db.session.add(new_evaluation)
 		db.session.commit()
 	return "done"
-	
+
 
 @evaluation_bp.route('/evaluation/<track_id>', methods=["GET", 'POST'])
 def evaluation(track_id):
+	current_user = session['curr_user']
 	track_id = track_id
-	alignment = Evaluation.query.filter_by(track_id=track_id).first()
-	return render_template('predict.jinja2', alignment=alignment)
+	track = Track.query.get(track_id)
+	title = track.title
+	evaluation = Evaluation.query.filter_by(track_id=track_id, user_id=current_user).first()
+	return render_template('evaluation.jinja2', alignment=evaluation, title=title)
 
+
+@evaluation_bp.route('/evaluation/<track_id>/delete', methods=["GET", 'POST'])
+def delete_saved_evaluation(track_id):
+	current_user = session['curr_user']
+	track_id = track_id
+	if Evaluation.query.filter_by(track_id=track_id, user_id=current_user).first():
+		eval = Evaluation.query.filter_by(track_id=track_id, user_id=current_user).first()
+		db.session.delete(eval)
+		db.session.commit()
+	return redirect(f'/saved/{current_user}')
+	

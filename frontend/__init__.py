@@ -20,6 +20,7 @@ def create_app():
 		from .about import about
 		from .predict import predict
 		from .evaluation import evaluation
+		from .saved_evaluations import saved_evaluations
 		from .error import error
 		
 		# register blueprints
@@ -32,6 +33,7 @@ def create_app():
 		app.register_blueprint(about.about_bp)
 		app.register_blueprint(predict.predict_bp)
 		app.register_blueprint(evaluation.evaluation_bp)
+		app.register_blueprint(saved_evaluations.saved_evaluations_bp)
 		app.register_blueprint(error.error_bp)
 		
 		return app

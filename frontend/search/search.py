@@ -1,4 +1,4 @@
-from flask import render_template, Blueprint, session, redirect, request
+from flask import render_template, Blueprint, session, request
 from flask import current_app as app
 import requests
 import json

@@ -1,4 +1,4 @@
-from flask import redirect, Blueprint, render_template
+from flask import Blueprint, render_template
 from flask import current_app as app
 
 # blueprint configuration

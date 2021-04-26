@@ -1,7 +1,9 @@
 {% extends 'layout.jinja2' %}
 
 {% block content %}
+<p>judgement</p>:
 
-    {{ genre }}
+   <p>{{ title }} is {{ alignment.result }}</p>
+<button><a href="{{ alignment.track_id }}/delete">delete</a></button>
 
 {% endblock %}

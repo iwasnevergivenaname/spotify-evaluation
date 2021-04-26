@@ -19,7 +19,7 @@ class User(db.Model):
 	spotify_id = db.Column(db.String, nullable=False, unique=True)
 	
 	# genres = db.relationship("Genre", backref="user")
-	evaluations = db.relationship('Evaluation')
+	# evaluations = db.relationship('Evaluation')
 
 
 class Artist(db.Model):
@@ -33,7 +33,7 @@ class Artist(db.Model):
 	image = db.Column(db.String)
 	
 	# genres = db.relationship("Genre", backref="artist")
-	tracks = db.relationship('Track')
+	# tracks = db.relationship('Track')
 
 
 class Track(db.Model):
@@ -53,7 +53,7 @@ class Track(db.Model):
 	image = db.Column(db.String)
 	
 	artist = db.relationship('Artist')
-	evaluation = db.relationship('Evaluation')
+	# evaluation = db.relationship('Evaluation')
 
 
 class Evaluation(db.Model):
@@ -64,6 +64,7 @@ class Evaluation(db.Model):
 	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 	user_id = db.Column(db.Text, db.ForeignKey('users.spotify_id'), nullable=False)
 	result = db.Column(db.String)
+	message = db.Column(db.String)
 	track_id = db.Column(db.Text, db.ForeignKey('tracks.id'), nullable=False)
 	
 	user = db.relationship('User')

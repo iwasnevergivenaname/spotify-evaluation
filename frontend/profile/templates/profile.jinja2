@@ -3,6 +3,7 @@
 {% block content %}
 
 <h1>moral judgment on {{profile.display_name}}</h1>
+    <p><a href="/saved/{{ profile.id }}">see saved evaluations</a></p>
 
 <div class="track-container">
     {% for artist in artists['items'] %}
