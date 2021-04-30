@@ -1,9 +1,10 @@
 {% extends 'layout.jinja2' %}
 
 {% block content %}
-<p>judgement</p>:
+<h3>my judgement is</h3>
 
-   <p>{{ title }} is {{ alignment.result }}</p>
+    <h4><a href="/track/{{ alignment.track_id }}">{{ title }}</a> is {{ alignment.result }} </h4>
+    <h5>{{ alignment.message }}</h5>
 <button><a href="{{ alignment.track_id }}/delete">delete</a></button>
 
 {% endblock %}

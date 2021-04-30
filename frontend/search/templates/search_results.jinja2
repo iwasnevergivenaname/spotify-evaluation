@@ -1,7 +1,6 @@
 {%extends 'layout.jinja2'%}
 
 {%block content%}
-search results:
 <hr>
 <div class="artist-container">
     {% if search.artists %}
@@ -12,7 +11,7 @@ search results:
         <div class="grid-item" style="background-image: url('{{artist.images[0].url}}')">
             {% else %}
             <a href="/artist/{{artist.id}}">
-                <div class="grid-item">
+                <div class="grid-item" style="background-image: url('../../static/img/venus.png')">
                     {% endif %}
                     {{artist.name}}<br>
                 </div>
@@ -21,7 +20,7 @@ search results:
             {% endif %}
         </div>
     </a></div>
-<br>
+<hr>
 
 <div class="track-container">
     {% if search.tracks %}
@@ -31,7 +30,7 @@ search results:
         <div class="grid-item" style="background-image: url('{{track.album.images[0].url}}')">
             {% else %}
             <a href="/track/{{track.id}}">
-                <div class="grid-item">
+                <div class="grid-item" style="background-image: url('../../static/img/venus.png')">
                     {% endif %}
                     {{track.name}} by {{track.album.artists[0].name}}<br>
                 </div>

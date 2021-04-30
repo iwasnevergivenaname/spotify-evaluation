@@ -3,7 +3,7 @@
 {% block content %}
     <ul>
         {% for evaluation in saved %}
-           <li>🦋 <a href="/evaluation/{{ evaluation.track_id }}">{{ evaluation.result }}</a></li>
+           <li><a href="/evaluation/{{ evaluation.track_id }}">{{ evaluation.result }}</a></li>
         {% endfor %}
     </ul>
 

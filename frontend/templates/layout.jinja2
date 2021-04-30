@@ -10,14 +10,21 @@
 </head>
 <body>
 <div class="container">
-<h1><a href="/profile">✨</a></h1>
-<h1><a href="/search">🔍</a></h1>
 
-{% block content %}
-{% endblock %}
-    <hr>
+    {#<ul id="navigation">#}
+    {#   <li><a href="/profile">profile</a></li>#}
+    {#   <li><a href="/search">search</a></li>#}
+    {#</ul>#}
+    {% include 'nav.jinja2' %}
+    {#<h1><a href="/profile">✨</a></h1>#}
+    {#<h1><a href="/search">🔍</a></h1>#}
 
-    <footer><a href="/about">about this app</a></footer>
+    {% block content %}
+    {% endblock %}
+{#        {% block footer %}#}
+{#        {% endblock %}#}
+    {% include 'footer.jinja2' %}
+
 </div>
 </body>
 </html>

@@ -1,4 +1,4 @@
-from flask import render_template, Blueprint, session, request
+from flask import render_template, Blueprint, session, request, redirect
 from flask import current_app as app
 import requests
 import json
@@ -22,14 +22,17 @@ def show_search_page():
 
 @search_bp.route('/search', methods=['POST'])
 def search_spotify_api():
-	search = request.form.get('search')
+	if not session.get('access_token'):
+		return redirect("/connect")
+	else:
+		search = request.form.get('search')
 
-	access_token = session['access_token']
-	auth_header = {"Authorization": f"Bearer {access_token}"}
+		access_token = session['access_token']
+		auth_header = {"Authorization": f"Bearer {access_token}"}
 
-	# search endpoint
-	search_endpoint = f"{spotify_api_url}/search?q={search}&type=track,artist"
-	search_resp = requests.get(search_endpoint, headers=auth_header)
-	search_data = json.loads(search_resp.text)
+		# search endpoint
+		search_endpoint = f"{spotify_api_url}/search?q={search}&type=track,artist"
+		search_resp = requests.get(search_endpoint, headers=auth_header)
+		search_data = json.loads(search_resp.text)
 
-	return render_template('search_results.jinja2', search=search_data)
+		return render_template('search_results.jinja2', search=search_data)

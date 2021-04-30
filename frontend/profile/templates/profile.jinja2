@@ -2,38 +2,46 @@
 
 {% block content %}
 
-<h1>moral judgment on {{profile.display_name}}</h1>
+    <h1>moral judgment on {{ profile.display_name }}</h1>
     <p><a href="/saved/{{ profile.id }}">see saved evaluations</a></p>
 
-<div class="track-container">
-    {% for artist in artists['items'] %}
-
-    <div class="grid-item">
-        <dt>artist</dt>
-        <dd>{{artist.name}}</dd>
-        <dt>genres</dt>
-        <dd>{{artist.genres}}</dd>
-        <a href="/artist/{{artist.id}}"><img class="spotify-img" src="{{artist.images[0].url}}" alt="{{artist.name}}" style="height: 320px"/></a>
-        <h6>popularity: {{artist.popularity}}%</h6>
+    <div class="artist-container">
+        {% for artist in artists['items'] %}
+            {% if  artist.images[0].url %}
+                <a href="/artist/{{ artist.id }}">
+                <div class="grid-item">
+                <h3>{{ artist.name }}</h3>
+                <div class="grid-item" style="background-image: url('{{ artist.images[0].url }}')">
+            {% else %}
+                <div class="grid-item" style="background-image: url('../../static/img/venus.png')">
+            {% endif %}
+        </div>
+        </div>
+        </a>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
-<br><br>
 
-<div class="track-container">
-    {% for track in tracks['items'] %}
 
-    <div class="grid-item">
 
-        <p>{{track.name}} by {{track.artists[0].name}}</p>
-        <a href="/track/{{track.id}}"><img class="spotify-img" src="{{track.album.images[0].url}}" alt="{{track.name}}" style="height: 320px"/></a>
-        <h6>popularity: {{track.popularity}}%</h6>
+    <div class="track-container">
+        {% for track in tracks['items'] %}
+            {% if track.album.images[0].url %}
+                <div class="grid-item">
+                <a href="/track/{{ track.id }}">
+                <div class="grid-item" style="background-image: url('{{ track.album.images[0].url }}')">
+            {% else %}
+                <div class="grid-item" style="background-image: url('../../static/img/venus.png')">
+            {% endif %}
+        {#            <img class="grid-item" src="{{track.album.images[0].url}}" alt="{{track.name}}"/>#}
+        <p>{{ track.name }} by {{ track.artists[0].name }}</p>
+        </div>
+        </a>
+        </div>
+        {% endfor %}
+
 
     </div>
-    {% endfor %}
-
-
-</div>
 
 
 {% endblock %}
+

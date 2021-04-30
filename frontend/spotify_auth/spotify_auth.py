@@ -30,7 +30,7 @@ state = ""
 # SHOW_DIALOG_bool = True
 # SHOW_DIALOG_str = str(SHOW_DIALOG_bool).lower()
 
-app.config["SECRET_KEY"] = "traveling swallowing dramamine"
+app.config["SECRET_KEY"] = "one two three four"
 
 # the following spotify authentication code was taken and adapted slightly from this repo
 # https://github.com/drshrey/spotify-flask-auth-example/blob/master/main.py

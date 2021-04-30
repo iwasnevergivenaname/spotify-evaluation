@@ -2,14 +2,15 @@
 
 {% block content %}
 
-<div class="track-background" style="background-image: url('{{artist.images[0].url}}'); background-position: center; background-size: contain">
+<div class="track-background" style="background-image: url({{ image }}); background-position: center; background-size: contain">
 
 
 
-ARTIST: {{artist.name}} {{artist.popularity}} {{artist.genres}}
+{{artist.popularity}}% of spotify users listen to {{artist.name}}
+    <br> {{artist.genres}}
 <hr>
 
-TOP TRACKS :
+top tracks:
 {% for track in top_tracks.tracks %}
  <a href="/track/{{track.id}}">{{track.name}} </a>
 <br>
@@ -17,7 +18,7 @@ TOP TRACKS :
 
 <hr>
 
-related:
+related artists:
 {% for artist in related_artist.artists %}
 <a href="/artist/{{artist.id}}">{{artist.name}}</a>
  <br>

@@ -4,3 +4,4 @@ node_modules
 .env
 venv/
 config.py
+Dockerfile

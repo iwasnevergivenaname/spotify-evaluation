@@ -13,9 +13,14 @@ a {
     color: #3A7734;
 }
 
+ul {
+    list-style-type: none;
+}
+
 .container {
     max-width: 1200px;
-    /*margin: auto;*/
+    margin: auto;
+    text-align: center;
 }
 
 .track-background {
@@ -25,6 +30,8 @@ a {
     width: 1200px;
     opacity: 0.7;
     margin: 0 auto;
+    text-align: left;
+    padding-left: 8vh;
 }
 
 .track-details {
@@ -49,24 +56,43 @@ a {
     grid-auto-columns: max-content;
     grid-auto-flow: dense;
     grid-auto-rows: minmax(100px, auto);
-    grid-gap: 25px;
+    grid-gap: 10px;
     grid-template-columns: repeat(5, 1fr);
     margin: 0 auto;
+    padding-bottom: 15vh;
 }
 
 .grid-item {
     grid-row: span 1;
     grid-column: span 1;
-    height: 320px;
-    width: 320px;
-    padding-top: 15vh;
+    height: 200px;
+    width: 200px;
+    padding-top: 10vh;
+    padding-bottom: 5vh;
+    background-position: center;
+}
+
+.grid-item p {
+    color: #5f5973;
+    background-color: #93dfdf;
+    opacity: 0.7;
 }
 
 .spotify-img {
     border-radius: 5px;
+    background-position: center;
 }
 
 .about {
     background-color: rgba(146, 19, 167, 0.4);
     padding: 15px;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: #4e4080;
+    text-align: center;
 }

@@ -2,6 +2,7 @@ from flask import Blueprint, session, request, render_template, redirect
 from flask import current_app as app
 from models import Evaluation, Track, connect_db, db
 from flask_sqlalchemy import SQLAlchemy
+from .services.alignment import alignment
 
 # blueprint configuration
 evaluation_bp = Blueprint(
@@ -20,7 +21,7 @@ def resp():
 	if Evaluation.query.filter_by(track_id=track_id).first():
 		pass
 	else:
-		new_evaluation = Evaluation(user_id=user_id, result=result, track_id=track_id)
+		new_evaluation = Evaluation(user_id=user_id, result=result, track_id=track_id, message=alignment[result])
 		db.session.add(new_evaluation)
 		db.session.commit()
 	return "done"

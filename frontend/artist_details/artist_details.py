@@ -39,7 +39,10 @@ def artist_details(artist_id):
 
 	name = artist_data['name']
 	popularity = artist_data['popularity']
-	image = artist_data['images'][0]['url']
+	if not artist_data['images']:
+		image = '../../static/img/venus.png'
+	else:
+		image = artist_data['images'][0]['url']
 	spotify_id = artist_data['id']
 
 	if not Artist.query.get(spotify_id):
@@ -52,5 +55,5 @@ def artist_details(artist_id):
 		Artist.query.filter_by(id=spotify_id).update(dict(popularity=popularity, image=image))
 		db.session.commit()
 
-	return render_template('artist_details.jinja2', artist=artist_data, top_tracks=artist_top_tracks_data,
+	return render_template('artist_details.jinja2', artist=artist_data, image=image, top_tracks=artist_top_tracks_data,
 	                       related_artist=artist_related_artist_data)

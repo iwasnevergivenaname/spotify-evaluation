@@ -11,7 +11,7 @@ predict_bp = Blueprint(
 	static_folder='static'
 )
 
-prediction_model_endpoint = 'http://127.0.0.1:8000/predict'
+prediction_model_endpoint = 'http://127.0.0.1:5500/predict'
 
 
 @predict_bp.route('/predict/<track_id>', methods=['GET', 'POST'])
@@ -24,9 +24,12 @@ def predict(track_id):
 	         'popularity': request.form.get("popularity"), 'track_id': track_id, 'user_id': user_id}
 	
 	print("🍄", track)
-	
-	prediction = requests.post(prediction_model_endpoint, json=track)
-	if prediction.status_code == 200:
-		return redirect(f'/evaluation/{track_id}')
+	health_check = requests.get('http://127.0.0.1:5500/health')
+	# print(health_check)
+	if health_check.status_code == 200:
+		prediction = requests.post(prediction_model_endpoint, json=track)
+		print(prediction)
+		if prediction.status_code == 200:
+			return redirect(f'/evaluation/{track_id}')
 	return redirect("/error")
 	
