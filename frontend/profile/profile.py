@@ -13,7 +13,7 @@ profile_bp = Blueprint(
 )
 
 # get the models up and running
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///spotify_evaluation_dev'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://spotify_evaluation_dev'
 # connect_db(app)
 # db.create_all()
 
