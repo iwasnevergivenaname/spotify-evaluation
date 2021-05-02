@@ -13,9 +13,9 @@ profile_bp = Blueprint(
 )
 
 # get the models up and running
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://spotify_evaluation_dev'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://spotify_evaluation'
 # connect_db(app)
-# db.create_all()
+db.create_all()
 
 #  spotify
 spotify_api_base = "https://api.spotify.com"
@@ -49,10 +49,10 @@ def profile():
 		top_tracks_data = json.loads(top_tracks_resp.text)
 		
 		session['curr_user'] = spotify_id
-		# if not User.query.filter(User.spotify_id == spotify_id).first():
-		# 	user = User(spotify_id=spotify_id)
-		#
-		# 	db.session.add(user)
-		# 	db.session.commit()
+		if not User.query.filter(User.spotify_id == spotify_id).first():
+			user = User(spotify_id=spotify_id)
+
+			db.session.add(user)
+			db.session.commit()
 
 		return render_template("profile.jinja2", profile=profile_data, artists=top_artist_data, tracks=top_tracks_data)
