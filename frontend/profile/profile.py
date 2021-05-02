@@ -13,8 +13,8 @@ profile_bp = Blueprint(
 )
 
 # get the models up and running
-# app.config['SQLALCHEMY_DATABASE_URI']
-# connect_db(app)
+SQLALCHEMY_DATABASE_URI = app.config['SQLALCHEMY_DATABASE_URI']
+connect_db(app)
 db.create_all()
 
 #  spotify
