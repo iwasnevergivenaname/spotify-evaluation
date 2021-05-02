@@ -1,13 +1,17 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+# from flask_sqlalchemy import SQLAlchemy
 import config
+import commands
+from models import connect_db, db
 
 
 def create_app():
 	"""create flask application"""
 	app = Flask(__name__, instance_relative_config=False)
 	app.config.from_object(config)
-	db = SQLAlchemy(app)
+	# db = SQLAlchemy(app)
+	connect_db(app)
+	db.create_all()
 	
 	with app.app_context():
 		# import parts of our application
