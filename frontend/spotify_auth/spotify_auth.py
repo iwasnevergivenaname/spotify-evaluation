@@ -37,7 +37,7 @@ app.config["SECRET_KEY"] = "one two three four"
 
 auth_query_parameters = {
 	"response_type": "code",
-	"redirect_uri": redirect_uri,
+	"redirect_uri": 'https://spotify-evaluation.herokuapp.com/callback',
 	"scope": scope,
 	"client_id": client_id
 }
