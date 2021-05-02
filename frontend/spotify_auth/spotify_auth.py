@@ -68,7 +68,7 @@ def callback():
 
 	# token returned to app
 	resp_data = json.loads(post_req.text)
-	# print(resp_data)
+	print(resp_data)
 	access_token = resp_data["access_token"]
 	session['access_token'] = access_token
 

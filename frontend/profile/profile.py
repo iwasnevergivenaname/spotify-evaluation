@@ -50,10 +50,10 @@ def profile():
 		top_tracks_data = json.loads(top_tracks_resp.text)
 		
 		session['curr_user'] = spotify_id
-		if not User.query.filter(User.spotify_id == spotify_id).first():
-			user = User(spotify_id=spotify_id)
-			
-			db.session.add(user)
-			db.session.commit()
+		# if not User.query.filter(User.spotify_id == spotify_id).first():
+		# 	user = User(spotify_id=spotify_id)
+		#
+		# 	db.session.add(user)
+		# 	db.session.commit()
 
 		return render_template("profile.jinja2", profile=profile_data, artists=top_artist_data, tracks=top_tracks_data)
