@@ -4,11 +4,11 @@ USERNAME = 'username'
 PASSWORD = 'password'
 HOST = '127.0.0.1'
 PORT = '5000'
-DATABASE = 'spotify_evaluation'
+DATABASE = 'spotify_evaluation_dev'
 # SQLALCHEMY_DATABASE_URI = "{}+{}://{}:{}@{}:{}/{}?charset=utf8".format(DIALECT, DRIVER, USERNAME, PASSWORD, HOST, PORT,
 #                                                                        DATABASE)
-DATABASE_URL = 'postgresql:///spotify_evaluation'
-SQLALCHEMY_DATABASE_URI = 'postgresql:///spotify_evaluation'
+DATABASE_URL = 'postgresql:///spotify_evaluation_dev'
+SQLALCHEMY_DATABASE_URI = 'postgresql:///spotify_evaluation_dev'
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
