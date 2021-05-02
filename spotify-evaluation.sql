@@ -1,5 +1,5 @@
 -- from the terminal run:
--- psql < spotify_evaluation.sql
+-- psql < spotify-evaluation.sql
 
 DROP DATABASE IF EXISTS spotify_evaluation;
 

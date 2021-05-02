@@ -5,3 +5,4 @@ node_modules
 venv/
 config.py
 Dockerfile
+docker-compose.yml
