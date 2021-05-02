@@ -5,13 +5,20 @@ PASSWORD = 'password'
 HOST = '127.0.0.1'
 PORT = '5000'
 DATABASE = 'spotify_evaluation'
-SQLALCHEMY_DATABASE_URI = "{}+{}://{}:{}@{}:{}/{}?charset=utf8".format(DIALECT, DRIVER, USERNAME, PASSWORD, HOST, PORT,
-                                                                       DATABASE)
-
+# SQLALCHEMY_DATABASE_URI = "{}+{}://{}:{}@{}:{}/{}?charset=utf8".format(DIALECT, DRIVER, USERNAME, PASSWORD, HOST, PORT,
+#                                                                        DATABASE)
+DATABASE_URL = 'postgresql:///spotify_evaluation'
+SQLALCHEMY_DATABASE_URI = 'postgresql:///spotify_evaluation'
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-
+#
+# class Config(object):
+#   DEBUG = False
+#   TESTING = False
+#   CSRF_ENABLED = True
+#   SECRET_KEY = 'this-really-needs-to-be-changed'
+#   SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///spotify_evaluation'
 
