@@ -11,7 +11,7 @@ def create_app():
 	app.config.from_object(config)
 	# db = SQLAlchemy(app)
 	connect_db(app)
-	db.create_all()
+	# db.create_all()
 	
 	with app.app_context():
 		# import parts of our application

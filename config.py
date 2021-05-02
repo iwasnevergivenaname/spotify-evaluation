@@ -10,7 +10,7 @@ DATABASE = 'spotify_evaluation_dev'
 # SQLALCHEMY_DATABASE_URI = "{}+{}://{}:{}@{}:{}/{}?charset=utf8".format(DIALECT, DRIVER, USERNAME, PASSWORD, HOST, PORT,
 #                                                                        DATABASE)
 DATABASE_URL = 'postgresql:///spotify_evaluation_dev'
-SQLALCHEMY_DATABASE_URI = 'postgresql:///spotify_evaluation_dev'
+SQLALCHEMY_DATABASE_URI = 'postgres://canguvfyjkvtbx:58e8c1e670c4619c5e06c363b6d127a53ea7245452eeb20d739a90a0776b1b30@ec2-52-87-107-83.compute-1.amazonaws.com:5432/d25s4qct6bnu2j'
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
