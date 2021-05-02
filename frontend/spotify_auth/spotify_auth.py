@@ -23,7 +23,7 @@ API_VERSION = "v1"
 spotify_api_url = f"{spotify_api_base}/{API_VERSION}"
 
 #  server side information
-redirect_uri = os.environ.get("REDIRECT_URI")
+redirect_uri = 'https://spotify-evaluation.herokuapp.com/callback'
 # specify what permissions you need based on endpoints
 scope = "user-read-private user-read-email user-top-read playlist-modify-public playlist-modify-private"
 state = ""
@@ -37,7 +37,7 @@ app.config["SECRET_KEY"] = "one two three four"
 
 auth_query_parameters = {
 	"response_type": "code",
-	"redirect_uri": 'https://spotify-evaluation.herokuapp.com/callback',
+	"redirect_uri": redirect_uri,
 	"scope": scope,
 	"client_id": client_id
 }
