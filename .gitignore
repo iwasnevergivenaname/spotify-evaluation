@@ -3,6 +3,5 @@ __pycache__/
 node_modules
 .env
 venv/
-config.py
 Dockerfile
 docker-compose.yml
