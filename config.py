@@ -1,3 +1,5 @@
+import os
+
 DIALECT = 'postgresql'
 DRIVER = 'psycopg'
 USERNAME = 'username'
@@ -11,6 +13,9 @@ DATABASE_URL = 'postgresql:///spotify_evaluation_dev'
 SQLALCHEMY_DATABASE_URI = 'postgresql:///spotify_evaluation_dev'
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+CLIENT_ID = os.environ['CLIENT_ID']
+CLIENT_SECRET = os.environ['CLIENT_SECRET']
 
 #
 # class Config(object):
