@@ -11,7 +11,7 @@ predict_bp = Blueprint(
 	static_folder='static'
 )
 
-prediction_model_endpoint = 'http://web:5500/predict'
+prediction_model_endpoint = 'https://mlsmodel.herokuapp.com/predict'
 
 
 @predict_bp.route('/predict/<track_id>', methods=['GET', 'POST'])
@@ -24,7 +24,7 @@ def predict(track_id):
 	         'popularity': request.form.get("popularity"), 'track_id': track_id, 'user_id': user_id}
 	
 	print("🍄", track)
-	health_check = requests.get('http://127.0.0.1:5500/health')
+	health_check = requests.get('https://mlsmodel.herokuapp.com/')
 	# print(health_check)
 	if health_check.status_code == 200:
 		prediction = requests.post(prediction_model_endpoint, json=track)

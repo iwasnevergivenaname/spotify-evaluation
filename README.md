@@ -78,6 +78,15 @@ high = 0.7 - 1.00
 
 ## some code to know
 
+/frontend/spotify_auth/spotify_auth.js
+```python
+def spotify_auth():
+	url_args = "&".join([f'{key}={val}' for key, val in auth_query_parameters.items()])
+	auth_url = f"{spotify_auth_url}/?{url_args}"
+	return redirect(auth_url)
+```
+this is the initial call to the spotify api, where, per spotify's request, the relevant data is sent in the parameters of the url
+
 #### techstack
 - Flask
 - Spotify's Developers API
