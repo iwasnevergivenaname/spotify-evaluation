@@ -1,8 +1,9 @@
 # spotify evaluation 
 
 hello :) welcome to an app that learned to judge you. built with Flask, SQLAlchemy, and connected to a machine learning
-application built specifically 
-welcome to this Flask personality evaluation app! judgements are made using a users available Spotify data 
+application 
+
+[play with the deployed version](https://spotify-evaluation.herokuapp.com/)
 
 ## getting started
 before you run this code on your own machine, please log in and register an app with the
