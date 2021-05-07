@@ -23,7 +23,8 @@ API_VERSION = "v1"
 spotify_api_url = f"{spotify_api_base}/{API_VERSION}"
 
 #  server side information
-redirect_uri = 'http://127.0.0.1:5000//callback'
+# redirect_uri = 'http://127.0.0.1:5000/callback'
+redirect_uri = 'https://spotify-evaluation.herokuapp.com/callback'
 # specify what permissions you need based on endpoints
 scope = "user-read-private user-read-email user-top-read playlist-modify-public playlist-modify-private"
 state = ""
