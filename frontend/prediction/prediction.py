@@ -1,18 +1,37 @@
 from flask import Blueprint, session, request, render_template, redirect
 from flask import current_app as app
-from models import Evaluation, Track, connect_db, db
 from flask_sqlalchemy import SQLAlchemy
-from .services.alignment import alignment
+from frontend.prediction.services.alignment import alignment
+from models import Track, Evaluation, connect_db, db
 
 # blueprint configuration
-evaluation_bp = Blueprint(
-	'evaluation_bp', __name__,
+prediction_bp = Blueprint(
+	'prediction_bp', __name__,
 	template_folder='templates',
 	static_folder='static'
 )
 
+prediction_model_endpoint = 'https://mlsmodel.herokuapp.com/predict'
 
-@evaluation_bp.route('/evaluation', methods=["GET", 'POST'])
+
+@prediction_bp.route('/predict/<track_id>', methods=['GET', 'POST'])
+def predict(track_id):
+	track_id = track_id
+	user_id = session['curr_user']
+	track = {'title': request.form.get("title"), 'acousticness': request.form.get("acoustic"),
+	         'danceability': request.form.get("dance"), 'energy': request.form.get("energy"),
+	         'speechiness': request.form.get("speech"), 'valence': request.form.get("valence"),
+	         'popularity': request.form.get("popularity"), 'track_id': track_id, 'user_id': user_id}
+	health_check = requests.get('https://mlsmodel.herokuapp.com/')
+	if health_check.status_code == 200:
+		prediction = requests.post(prediction_model_endpoint, json=track)
+		print(prediction)
+		if prediction.status_code == 200:
+			return redirect(f'/evaluation/{track_id}')
+	return redirect("/error")
+
+
+@prediction_bp.route('/evaluation', methods=["GET", 'POST'])
 def resp():
 	data = request.get_json()
 	track_id = data['track_id']
@@ -27,7 +46,7 @@ def resp():
 	return "done"
 
 
-@evaluation_bp.route('/evaluation/<track_id>', methods=["GET", 'POST'])
+@prediction_bp.route('/evaluation/<track_id>', methods=["GET", 'POST'])
 def evaluation(track_id):
 	current_user = session['curr_user']
 	track_id = track_id
@@ -37,7 +56,7 @@ def evaluation(track_id):
 	return render_template('evaluation.jinja2', alignment=evaluation, title=title)
 
 
-@evaluation_bp.route('/evaluation/<track_id>/delete', methods=["GET", 'POST'])
+@prediction_bp.route('/evaluation/<track_id>/delete', methods=["GET", 'POST'])
 def delete_saved_evaluation(track_id):
 	current_user = session['curr_user']
 	track_id = track_id
@@ -46,4 +65,3 @@ def delete_saved_evaluation(track_id):
 		db.session.delete(eval)
 		db.session.commit()
 	return redirect(f'/saved/{current_user}')
-	

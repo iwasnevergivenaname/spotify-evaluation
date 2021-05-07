@@ -29,6 +29,7 @@ def profile():
 	if not session.get('access_token'):
 		return redirect("/connect")
 	else:
+		print("IN WITH ACCESS TOKEN")
 		access_token = session['access_token']
 		auth_header = {"Authorization": f"Bearer {access_token}"}
 
@@ -36,6 +37,7 @@ def profile():
 		user_profile_endpoint = f"{spotify_api_url}/me"
 		profile_resp = requests.get(user_profile_endpoint, headers=auth_header)
 		profile_data = json.loads(profile_resp.text)
+		print(profile_data)
 		spotify_id = profile_data['id']
 
 		# user top artists
