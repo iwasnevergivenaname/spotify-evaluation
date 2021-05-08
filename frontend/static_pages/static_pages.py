@@ -24,8 +24,8 @@ def about():
 @static_pages_bp.route('/logout', methods=["GET"])
 def logout():
 	# print("beep ebeep")
-	# session.pop('access_token', None)
-	# print('logging out')
+	session.pop('access_token', None)
+	print('logging out')
 	return redirect("/")
 
 
