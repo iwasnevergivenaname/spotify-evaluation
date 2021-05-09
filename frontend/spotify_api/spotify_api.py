@@ -93,21 +93,13 @@ def profile():
 	
 	# profile data
 	profile_data = spotify_request(f"{spotify_api_url}/me", auth_header)
-	# user_profile_endpoint = f"{spotify_api_url}/me"
-	# profile_resp = requests.get(user_profile_endpoint, headers=auth_header)
-	# profile_data = json.loads(profile_resp.text)
-	print("ewkudhweluhflweuhf", profile_data)
 	spotify_id = profile_data['id']
 	
 	# user top artists
-	user_top_artist_endpoint = f"{spotify_api_url}/me/top/artists?limit=5"
-	top_artist_resp = requests.get(user_top_artist_endpoint, headers=auth_header)
-	top_artist_data = json.loads(top_artist_resp.text)
+	top_artist_data = spotify_request(f"{spotify_api_url}/me/top/artists?limit=5", auth_header)
 	
 	# user top tracks
-	user_top_tracks_endpoint = f"{spotify_api_url}/me/top/tracks?limit=25"
-	top_tracks_resp = requests.get(user_top_tracks_endpoint, headers=auth_header)
-	top_tracks_data = json.loads(top_tracks_resp.text)
+	top_tracks_data = spotify_request(f"{spotify_api_url}/me/top/tracks?limit=25", auth_header)
 	
 	session['curr_user'] = spotify_id
 	if not User.query.filter(User.spotify_id == spotify_id).first():
@@ -125,19 +117,13 @@ def artist_details(artist_id):
 	auth_header = {"Authorization": f"Bearer {access_token}"}
 	
 	# artist
-	artist_endpoint = f"{spotify_api_url}/artists/{artist_id}"
-	artist_resp = requests.get(artist_endpoint, headers=auth_header)
-	artist_data = json.loads(artist_resp.text)
+	artist_data = spotify_request(f"{spotify_api_url}/artists/{artist_id}", auth_header)
 	
 	# artist top tracks
-	artist_top_tracks_endpoint = f"{spotify_api_url}/artists/{artist_id}/top-tracks?market=US"
-	artist_top_tracks_resp = requests.get(artist_top_tracks_endpoint, headers=auth_header)
-	artist_top_tracks_data = json.loads(artist_top_tracks_resp.text)
+	artist_top_tracks_data = spotify_request(f"{spotify_api_url}/artists/{artist_id}/top-tracks?market=US", auth_header)
 	
 	# artists related artist
-	artist_related_artist_endpoint = f"{spotify_api_url}/artists/{artist_id}/related-artists"
-	artist_related_artist_resp = requests.get(artist_related_artist_endpoint, headers=auth_header)
-	artist_related_artist_data = json.loads(artist_related_artist_resp.text)
+	artist_related_artist_data = spotify_request(f"{spotify_api_url}/artists/{artist_id}/related-artists", auth_header)
 	
 	name = artist_data['name']
 	popularity = artist_data['popularity']
@@ -174,14 +160,10 @@ def track_details(track_id):
 	auth_header = {"Authorization": f"Bearer {access_token}"}
 	
 	# track
-	track_endpoint = f"{spotify_api_url}/tracks/{track_id}"
-	track_resp = requests.get(track_endpoint, headers=auth_header)
-	track_data = json.loads(track_resp.text)
+	track_data = spotify_request(f"{spotify_api_url}/tracks/{track_id}", auth_header)
 	
 	# track features like popularity and valence
-	track_features_endpoint = f"{spotify_api_url}/audio-features/{track_id}"
-	track_features_resp = requests.get(track_features_endpoint, headers=auth_header)
-	track_features_data = json.loads(track_features_resp.text)
+	track_features_data = spotify_request(f"{spotify_api_url}/audio-features/{track_id}", auth_header)
 	
 	default = 0.00
 	
@@ -261,8 +243,6 @@ def search_spotify_api():
 		auth_header = {"Authorization": f"Bearer {access_token}"}
 
 		# search endpoint
-		search_endpoint = f"{spotify_api_url}/search?q={search}&type=track,artist"
-		search_resp = requests.get(search_endpoint, headers=auth_header)
-		search_data = json.loads(search_resp.text)
+		search_data = spotify_request(f"{spotify_api_url}/search?q={search}&type=track,artist", auth_header)
 
 		return render_template('search_results.jinja2', search=search_data)
