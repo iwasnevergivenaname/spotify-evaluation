@@ -1,5 +1,6 @@
 from flask import Blueprint, session, request, render_template, redirect
 from flask import current_app as app
+import requests
 from flask_sqlalchemy import SQLAlchemy
 from frontend.prediction.services.alignment import alignment
 from models import Track, Evaluation, connect_db, db

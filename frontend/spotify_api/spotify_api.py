@@ -93,6 +93,7 @@ def profile():
 	
 	# profile data
 	profile_data = spotify_request(f"{spotify_api_url}/me", auth_header)
+	print(profile_data)
 	spotify_id = profile_data['id']
 	
 	# user top artists
