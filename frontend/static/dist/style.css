@@ -75,8 +75,8 @@ ul {
 }
 
 .grid-item p {
-    color: #5f5973;
-    background-color: #93dfdf;
+    color: #fc66e4;
+    background-color: #8f9b9b;
     opacity: 0.7;
 }
 
@@ -105,11 +105,6 @@ ul {
     border-color: transparent;
     outline: none;
     color: #4d3b88;
-}
-
-.grid-item a {
-    background-color: #93dfdf;
-    opacity: 0.7;
 }
 
 .about {
