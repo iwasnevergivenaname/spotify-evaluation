@@ -65,3 +65,10 @@ def delete_saved_evaluation(track_id):
 		db.session.delete(eval)
 		db.session.commit()
 	return redirect(f'/saved/{current_user}')
+
+
+@prediction_bp.route('/saved/<user_id>', methods=["GET"])
+def evaluations(user_id):
+	user_id = user_id
+	saved = Evaluation.query.filter_by(user_id=user_id)
+	return render_template('saved_evaluations.jinja2', saved=saved)

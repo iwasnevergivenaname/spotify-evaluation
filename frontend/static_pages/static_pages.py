@@ -24,14 +24,10 @@ def about():
 @static_pages_bp.route('/logout', methods=["GET"])
 def logout():
 	# print("beep ebeep")
+	session.get('access_token')
 	session.pop('access_token', None)
 	print('logging out')
 	return redirect("/")
-
-
-@static_pages_bp.route("/beep")
-def test():
-	return "beep"
 
 
 @static_pages_bp.route("/error")
