@@ -7,6 +7,7 @@ import os
 from flask import current_app as app
 from flask_sqlalchemy import SQLAlchemy
 from models import User, Artist, Track, connect_db, db
+from .services.data_parsing import spotify_request
 
 # blueprint configuration
 spotify_api_bp = Blueprint(
@@ -91,9 +92,10 @@ def profile():
 	auth_header = {"Authorization": f"Bearer {access_token}"}
 	
 	# profile data
-	user_profile_endpoint = f"{spotify_api_url}/me"
-	profile_resp = requests.get(user_profile_endpoint, headers=auth_header)
-	profile_data = json.loads(profile_resp.text)
+	profile_data = spotify_request(f"{spotify_api_url}/me", auth_header)
+	# user_profile_endpoint = f"{spotify_api_url}/me"
+	# profile_resp = requests.get(user_profile_endpoint, headers=auth_header)
+	# profile_data = json.loads(profile_resp.text)
 	print("ewkudhweluhflweuhf", profile_data)
 	spotify_id = profile_data['id']
 	
