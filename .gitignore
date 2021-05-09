@@ -3,6 +3,6 @@ __pycache__/
 node_modules
 .env
 venv/
-#Dockerfile
-#docker-compose.yml
+Dockerfile
+docker-compose.yml
 Procfile
