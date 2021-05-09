@@ -25,7 +25,8 @@ API_VERSION = "v1"
 spotify_api_url = f"{spotify_api_base}/{API_VERSION}"
 
 #  server side information
-redirect_uri = os.environ.get("REDIRECT_URI")
+redirect_uri = 'https://spotify-evaluation.herokuapp.com/callback'
+# redirect_uri = os.environ.get("REDIRECT_URI")
 
 # specify what permissions you need based on endpoints
 scope = "user-read-private user-read-email user-top-read playlist-modify-public playlist-modify-private"
@@ -51,6 +52,7 @@ auth_query_parameters = {
 
 @spotify_api_bp.route('/connect', methods=['GET'])
 def spotify_auth():
+	print(redirect_uri)
 	if session.get('access_token'):
 		return redirect("/profile")
 	else:
