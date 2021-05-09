@@ -28,7 +28,7 @@ ul {
     background-repeat: no-repeat;
     background-attachment: fixed;
     width: 1200px;
-    opacity: 0.7;
+    opacity: 0.5;
     margin: 0 auto;
     text-align: left;
     padding-left: 8vh;
@@ -76,7 +76,7 @@ ul {
 
 .grid-item p {
     color: #f5e6f3;
-    background-color: #5a6fae;
+    background-color: #203166;
     opacity: 0.7;
 }
 
