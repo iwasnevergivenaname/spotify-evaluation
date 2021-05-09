@@ -26,7 +26,7 @@ API_VERSION = "v1"
 spotify_api_url = f"{spotify_api_base}/{API_VERSION}"
 
 #  server side information
-redirect_uri = 'https://spotify-evaluation.herokuapp.com/callback'
+redirect_uri = 'http://127.0.0.1:5000/callback'
 # redirect_uri = os.environ.get("REDIRECT_URI")
 
 # specify what permissions you need based on endpoints

@@ -85,6 +85,28 @@ ul {
     background-position: center;
 }
 
+.search-div {
+    background-image: url("../img/search-venus.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    height: 90vh;
+    width: 90vh;
+}
+
+.search-bar {
+    margin: 0 auto;
+    position: fixed;
+    background-color: transparent;
+    top: 46vh;
+    left: 42%;
+    font-size: 30px;
+    border-color: transparent;
+    outline: none;
+    color: #4d3b88;
+}
+
 .about {
     background-color: rgba(146, 19, 167, 0.4);
     padding: 15px;
