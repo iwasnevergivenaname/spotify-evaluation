@@ -10,7 +10,7 @@ body {
 
 a {
     text-decoration: none;
-    color: #3A7734;
+    color: #c39dbc;
 }
 
 ul {
@@ -32,8 +32,8 @@ ul {
     margin: 0 auto;
     text-align: left;
     padding-left: 8vh;
-    color: white;
-    mix-blend-mode: difference;
+    color: #eec6db;
+    text-shadow: 3px 3px 3px #32283f;
 }
 
 .track-details {
