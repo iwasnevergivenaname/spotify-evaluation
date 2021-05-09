@@ -107,6 +107,11 @@ ul {
     color: #4d3b88;
 }
 
+.grid-item a {
+    background-color: #93dfdf;
+    opacity: 0.7;
+}
+
 .about {
     background-color: rgba(146, 19, 167, 0.4);
     padding: 15px;
