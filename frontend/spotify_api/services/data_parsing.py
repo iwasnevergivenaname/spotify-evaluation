@@ -1,4 +1,5 @@
 import requests
+import json
 
 
 def spotify_request(api_endpoint, auth_header):
