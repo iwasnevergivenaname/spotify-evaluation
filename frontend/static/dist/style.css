@@ -36,6 +36,12 @@ ul {
     text-shadow: 1px 1px 3px #080709;
 }
 
+.track-background p {
+    color: #f5e6f3;
+    background-color: #203166;
+    opacity: 0.7;
+}
+
 .track-details {
     padding: 50px;
 }
