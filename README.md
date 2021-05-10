@@ -1,7 +1,7 @@
 # spotify evaluation 
 
-hello :) welcome to an app that learned to judge you. built with Flask, SQLAlchemy, and connected to a machine learning
-application 
+hello :) welcome to an app that learned to align you, morally. built with Flask, SQLAlchemy, connected to a machine learning
+application built with scikit-learn, and based on the ideology behind Dungeons and Dragons Moral Alignment
 
 [play with the deployed version](https://spotify-evaluation.herokuapp.com/)
 
@@ -24,14 +24,15 @@ and open a web browser to [127.0.0.1:5000](http://127.0.0.1:5000/)
 
 [fork and clone this backend repo to access the model making predictions](https://github.com/iwasnevergivenaname/spotify-backend)
 
-## about the application
-this app is just a personal take on Personality Quizzes using the ideology of Moral Alignment from Dungeons and Dragons
+## features of the application
+this app can be broken into 3 mini apps: a static collection of pages (about or home page), an app to collect relevant 
+artist data from spotify's api, and a machine learning model built to categorize songs based on track analysis. 
 
 #### how it works
-this app utilizes Spotify's API and OAuth. after a user connect their spotify account to the app, the app makes calls to
-Spotify requesting information about the Users display information, top Tracks, Artists, and Playlist. using the combined
-data of those Tracks and Artists, an light hearted judgement is made and returned to the user. this app is meant to be
-fun, while exploring data visualization. 
+utilizing Spotify's API and OAuth, a user connect their spotify account to the app, the app makes calls to
+Spotify requesting information about the users display information, top tracks, and artists. using the 
+data of the tracks, a light hearted judgement is made and returned to the user. this app is meant to be
+fun, while exploring a new medium with machine learning. 
 
 #### judgement criteria 
 everything is based off of the idea that music falling in specific ranges of data fall into one of these nine categories,
@@ -76,56 +77,18 @@ high = 0.7 - 1.00
 |      | low energy |  | high dance |
 
 
-
-## some code to know
-
-/frontend/spotify_auth/spotify_auth.js
-```python
-def spotify_auth():
-	url_args = "&".join([f'{key}={val}' for key, val in auth_query_parameters.items()])
-	auth_url = f"{spotify_auth_url}/?{url_args}"
-	return redirect(auth_url)
-```
-this is the initial call to the spotify api, where, per spotify's request, the relevant data is sent in the parameters of the url
-
 #### techstack
 - Flask
 - Spotify's Developers API
+- SQLAlchemy
+- Scikit-learn
+- Numpy
+- Pandas
 
-
-
-## visuals
-
-![evolution of the homepage design](https://i.imgur.com/ZbgKAV7.png)
-here is the evolution of the homepage webdesign 
-
-using Spotify's green for initial inspiration, i was able to eventually find a match between Spotify and my own taste.
-
-![search page design](https://i.imgur.com/XNwZetM.png)
-first iteration of the search page
-
-![search page results](https://i.imgur.com/lzUYVkO.jpg)
-first layout for search page results 
-
-
-## routes
-
-| Route Name | Description |
-|------------|-------------|
-| / | homepage |
-| /connect | spotify redirect |
-| /callback | registered redirect uri |
-| /profile | data on user |
-| /track/:track-id | data on specific track |
-| /artist/:artist-id | data on specific artist |
-| /about | about page |
-
-
-## future updates
-
-## thank you
 
 ## references 
-[Spotify Flask Auth Example by drshrey](https://github.com/drshrey/spotify-flask-auth-example)<br>
-[Flask Blueprint Tutorial by hackersandslackers](https://github.com/hackersandslackers/flask-blueprint-tutorial)
+[Spotify Developer API](https://developer.spotify.com/documentation/web-api/) <br>
+[Spotify Flask Auth Example by drshrey](https://github.com/drshrey/spotify-flask-auth-example) <br>
+[Spotify Datasets from 1920-2020 by Yamac Eren Ay](https://www.kaggle.com/yamaerenay/spotify-dataset-19212020-160k-tracks) <br>
+[Flask Blueprint Tutorial by hackersandslackers](https://github.com/hackersandslackers/flask-blueprint-tutorial) <br>
 

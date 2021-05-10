@@ -12,7 +12,8 @@ prediction_bp = Blueprint(
 	static_folder='static'
 )
 
-prediction_model_endpoint = 'https://mlsmodel.herokuapp.com/predict'
+prediction_model_endpoint = 'http:///127.0.0.1:5500/predict'
+# prediction_model_endpoint = 'https://mlsmodel.herokuapp.com/predict'
 
 
 @prediction_bp.route('/predict/<track_id>', methods=['GET', 'POST'])
