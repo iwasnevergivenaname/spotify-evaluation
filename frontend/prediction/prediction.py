@@ -13,6 +13,8 @@ prediction_bp = Blueprint(
 )
 
 prediction_model_endpoint = 'http:///127.0.0.1:5500/predict'
+
+
 # prediction_model_endpoint = 'https://mlsmodel.herokuapp.com/predict'
 
 
@@ -24,12 +26,11 @@ def predict(track_id):
 	         'danceability': request.form.get("dance"), 'energy': request.form.get("energy"),
 	         'speechiness': request.form.get("speech"), 'valence': request.form.get("valence"),
 	         'popularity': request.form.get("popularity"), 'track_id': track_id, 'user_id': user_id}
-	health_check = requests.get('https://mlsmodel.herokuapp.com/')
-	if health_check.status_code == 200:
-		prediction = requests.post(prediction_model_endpoint, json=track)
-		print(prediction)
-		if prediction.status_code == 200:
-			return redirect(f'/evaluation/{track_id}')
+	
+	prediction = requests.post(prediction_model_endpoint, json=track)
+	print(prediction)
+	if prediction.status_code == 200:
+		return redirect(f'/evaluation/{track_id}')
 	return redirect("/error")
 
 
