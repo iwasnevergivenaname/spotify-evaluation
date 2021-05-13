@@ -18,9 +18,6 @@ class User(db.Model):
 	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 	spotify_id = db.Column(db.String, nullable=False, unique=True)
 	
-	# genres = db.relationship("Genre", backref="user")
-	# evaluations = db.relationship('Evaluation')
-
 
 class Artist(db.Model):
 	"""Artist"""
@@ -31,9 +28,6 @@ class Artist(db.Model):
 	name = db.Column(db.String, nullable=False, unique=True)
 	popularity = db.Column(db.Integer)
 	image = db.Column(db.String)
-	
-	# genres = db.relationship("Genre", backref="artist")
-	# tracks = db.relationship('Track')
 
 
 class Track(db.Model):
@@ -53,8 +47,6 @@ class Track(db.Model):
 	image = db.Column(db.String)
 	
 	artist = db.relationship('Artist')
-	# evaluation = db.relationship('Evaluation')
-
 
 class Evaluation(db.Model):
 	"""Evaluation"""
@@ -69,14 +61,3 @@ class Evaluation(db.Model):
 	
 	user = db.relationship('User')
 	track = db.relationship('Track')
-
-
-class Genre(db.Model):
-	"""Genre"""
-	
-	__tablename__ = "genres"
-	
-	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-	title = db.Column(db.String, nullable=False, unique=True)
-# artist_id = db.Column(db.ForeignKey('artist.id'), nullable=False)
-# user_id = db.Column(db.ForeignKey('user.id'), nullable=False)

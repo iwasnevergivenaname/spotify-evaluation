@@ -4,6 +4,7 @@ import requests
 from flask_sqlalchemy import SQLAlchemy
 from frontend.prediction.services.alignment import alignment
 from models import Track, Evaluation, connect_db, db
+import os
 
 # blueprint configuration
 prediction_bp = Blueprint(
@@ -12,11 +13,7 @@ prediction_bp = Blueprint(
 	static_folder='static'
 )
 
-prediction_model_endpoint = 'http:///127.0.0.1:5500/predict'
-
-
-# prediction_model_endpoint = 'https://mlsmodel.herokuapp.com/predict'
-
+prediction_model_endpoint = os.environ.get("PREDICTION_MODEL_ENDPOINT")
 
 @prediction_bp.route('/predict/<track_id>', methods=['GET', 'POST'])
 def predict(track_id):
@@ -28,7 +25,6 @@ def predict(track_id):
 	         'popularity': request.form.get("popularity"), 'track_id': track_id, 'user_id': user_id}
 	
 	prediction = requests.post(prediction_model_endpoint, json=track)
-	print(prediction)
 	if prediction.status_code == 200:
 		return redirect(f'/evaluation/{track_id}')
 	return redirect("/error")
