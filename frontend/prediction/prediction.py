@@ -5,6 +5,8 @@ from flask_sqlalchemy import SQLAlchemy
 from frontend.prediction.services.alignment import alignment
 from models import Track, Evaluation, connect_db, db
 import os
+from ..static.services.constants import danceability, energy, valence, popularity, speechiness, acousticness, acoustic, \
+	speech, dance
 
 # blueprint configuration
 prediction_bp = Blueprint(
@@ -15,14 +17,15 @@ prediction_bp = Blueprint(
 
 prediction_model_endpoint = os.environ.get("PREDICTION_MODEL_ENDPOINT")
 
+
 @prediction_bp.route('/predict/<track_id>', methods=['GET', 'POST'])
 def predict(track_id):
 	track_id = track_id
 	user_id = session['curr_user']
-	track = {'title': request.form.get("title"), 'acousticness': request.form.get("acoustic"),
-	         'danceability': request.form.get("dance"), 'energy': request.form.get("energy"),
-	         'speechiness': request.form.get("speech"), 'valence': request.form.get("valence"),
-	         'popularity': request.form.get("popularity"), 'track_id': track_id, 'user_id': user_id}
+	track = {'title': request.form.get("title"), acousticness: request.form.get(acoustic),
+	         danceability: request.form.get(dance), energy: request.form.get(energy),
+	         speechiness: request.form.get(speech), valence: request.form.get(valence),
+	         popularity: request.form.get(popularity), 'track_id': track_id, 'user_id': user_id}
 	
 	prediction = requests.post(prediction_model_endpoint, json=track)
 	if prediction.status_code == 200:
@@ -51,8 +54,8 @@ def evaluation(track_id):
 	track_id = track_id
 	track = Track.query.get(track_id)
 	title = track.title
-	evaluation = Evaluation.query.filter_by(track_id=track_id, user_id=current_user).first()
-	return render_template('evaluation.jinja2', alignment=evaluation, title=title)
+	user_evaluation = Evaluation.query.filter_by(track_id=track_id, user_id=current_user).first()
+	return render_template('evaluation.jinja2', alignment=user_evaluation, title=title)
 
 
 @prediction_bp.route('/evaluation/<track_id>/delete', methods=["GET", 'POST'])

@@ -8,6 +8,8 @@ from flask import current_app as app
 from flask_sqlalchemy import SQLAlchemy
 from models import User, Artist, Track, connect_db, db
 from .services.data_parsing import spotify_request, make_get_request
+from ..static.services.constants import client_id, client_secret, spotify_auth_url, spotify_api_url, scope, state, \
+	danceability, energy, valence, popularity, speechiness, acousticness, default
 
 # blueprint configuration
 spotify_api_bp = Blueprint(
@@ -15,23 +17,6 @@ spotify_api_bp = Blueprint(
 	template_folder='templates',
 	static_folder='static'
 )
-
-# these are all for spotify
-client_id = os.environ.get("CLIENT_ID")
-client_secret = os.environ.get("CLIENT_SECRET")
-spotify_auth_url = "https://accounts.spotify.com/authorize"
-spotify_token_url = "https://accounts.spotify.com/api/token"
-spotify_api_base = "https://api.spotify.com"
-API_VERSION = "v1"
-spotify_api_url = f"{spotify_api_base}/{API_VERSION}"
-
-#  server side information
-# redirect_uri = 'https://spotify-evaluation.herokuapp.com/callback'
-redirect_uri = os.environ.get("REDIRECT_URI")
-
-# specify what permissions you need based on endpoints
-scope = "user-read-private user-read-email user-top-read playlist-modify-public playlist-modify-private"
-state = ""
 
 app.config["SECRET_KEY"] = "one two three four"
 
@@ -125,42 +110,28 @@ def artist_details(artist_id):
 		artist_related_artist_data = make_get_request(f"{spotify_api_url}/artists/{artist_id}/related-artists", session)
 		
 		name = artist_data['name']
-		popularity = artist_data['popularity']
 		
 		if not artist_data['images']:
 			image = '../../static/img/venus.png'
 		else:
 			image = artist_data['images'][0]['url']
-			
+		
 		spotify_id = artist_data['id']
 		
 		if not Artist.query.get(spotify_id):
-			artist = Artist(name=name, popularity=popularity, image=image, id=spotify_id)
+			artist = Artist(name=name, popularity=artist_data[popularity], image=image, id=spotify_id)
 			db.session.add(artist)
 			db.session.commit()
 		elif Artist.query.filter(Artist.popularity == popularity).first():
 			pass
 		else:
-			Artist.query.filter_by(id=spotify_id).update(dict(popularity=popularity, image=image))
+			Artist.query.filter_by(id=spotify_id).update(dict(popularity=artist_data[popularity], image=image))
 			db.session.commit()
 		
 		return render_template('artist_details.jinja2', artist=artist_data, image=image, top_tracks=artist_top_tracks_data,
 		                       related_artist=artist_related_artist_data)
-
-
-# class RequestResponse:
-# 	def __init__(self, response):
-# 		self.response = response
-#
-# 	def get_artist(self):
-# 		return self.response['artists']
-
-# from collections import defaultdict
-#
-# consts = defaultdict(str)
-# consts.ACOUSTICNESS = 'ACOUSTICNESS'
-
-
+	
+	
 @spotify_api_bp.route("/track/<track_id>", methods=["GET"])
 def track_details(track_id):
 	if not session.get('access_token'):
@@ -178,20 +149,8 @@ def track_details(track_id):
 		# track features like popularity and valence
 		track_features_data = make_get_request(f"{spotify_api_url}/audio-features/{track_id}", session)
 		
-		# track_info = RequestResponse(track_features_data)
-		# track_info.get_artist()
-		default = 0.00
-		
 		title = track_data['name']
 		artist_id = track_data['artists'][0]['id']
-		popularity = track_data['popularity']
-		
-		energy = track_features_data.get('energy', default)
-		dance = track_features_data.get('danceability', default)
-		acoustic = track_features_data.get('acousticness', default)
-		# acoustic = track_features_data.get(consts.ACOUSTICNESS)
-		speech = track_features_data.get('speechiness', default)
-		valence = track_features_data.get('valence', default)
 		
 		if track_data['album']['images'][0]['url']:
 			image = track_data['album']['images'][0]['url']
@@ -199,8 +158,12 @@ def track_details(track_id):
 			image = '/static/placeholder.png'
 		
 		if Artist.query.get(artist_id) and not Track.query.get(track_id):
-			track = Track(title=title, artist_id=artist_id, popularity=popularity, energy=energy, dance=dance,
-			              acoustic=acoustic, speech=speech, valence=valence, id=track_id, image=image)
+			track = Track(title=title, artist_id=artist_id, popularity=track_data[popularity],
+			              energy=track_features_data.get(energy, default),
+			              dance=track_features_data.get(danceability, default),
+			              acoustic=track_features_data.get(acousticness, default),
+			              speech=track_features_data.get(speechiness, default),
+			              valence=track_features_data.get(valence, default), id=track_id, image=image)
 			artist = Artist.query.get(artist_id)
 			
 			db.session.add(track)
@@ -213,8 +176,12 @@ def track_details(track_id):
 			db.session.add(artist)
 			db.session.commit()
 		
-		track = Track(title=title, artist_id=artist_id, popularity=popularity, energy=energy, dance=dance,
-		              acoustic=acoustic, speech=speech, valence=valence, id=track_id, image=image)
+		track = Track(title=title, artist_id=artist_id, popularity=track_data[popularity],
+			              energy=track_features_data.get(energy, default),
+			              dance=track_features_data.get(danceability, default),
+			              acoustic=track_features_data.get(acousticness, default),
+			              speech=track_features_data.get(speechiness, default),
+			              valence=track_features_data.get(valence, default), id=track_id, image=image)
 		
 		db.session.add(track)
 		db.session.commit()
