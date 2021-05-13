@@ -126,10 +126,12 @@ def artist_details(artist_id):
 		
 		name = artist_data['name']
 		popularity = artist_data['popularity']
+		
 		if not artist_data['images']:
 			image = '../../static/img/venus.png'
 		else:
 			image = artist_data['images'][0]['url']
+			
 		spotify_id = artist_data['id']
 		
 		if not Artist.query.get(spotify_id):
@@ -184,32 +186,12 @@ def track_details(track_id):
 		artist_id = track_data['artists'][0]['id']
 		popularity = track_data['popularity']
 		
-		if not track_features_data.get('energy'):
-			energy = default
-		else:
-			energy = track_features_data['energy']
-		
-		if not track_features_data.get('danceability'):
-			dance = default
-		else:
-			dance = track_features_data['danceability']
-		
-		print(dance)
-		
-		# if not track_features_data.get(consts.ACUSTICNESS):
-		# 	acoustic = default
-		# else:
-		# 	acoustic = track_features_data['acousticness']
-		
-		if not track_features_data.get('speechiness'):
-			speech = default
-		else:
-			speech = track_features_data['speechiness']
-		
-		if not track_features_data.get('valence'):
-			valence = default
-		else:
-			valence = track_features_data['valence']
+		energy = track_features_data.get('energy', default)
+		dance = track_features_data.get('danceability', default)
+		acoustic = track_features_data.get('acousticness', default)
+		# acoustic = track_features_data.get(consts.ACOUSTICNESS)
+		speech = track_features_data.get('speechiness', default)
+		valence = track_features_data.get('valence', default)
 		
 		if track_data['album']['images'][0]['url']:
 			image = track_data['album']['images'][0]['url']
