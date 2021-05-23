@@ -6,7 +6,7 @@ from urllib.parse import quote
 import os
 from flask import current_app as app
 from flask_sqlalchemy import SQLAlchemy
-# from models import User, Artist, Track, connect_db, db
+from models import User, Artist, Track, connect_db, db
 from .services.data_parsing import make_get_request
 from ..static.services.constants import client_id, client_secret, spotify_auth_url, redirect_uri, spotify_api_url, scope, state, \
 	danceability, energy, valence, popularity, speechiness, acousticness, default
@@ -87,11 +87,11 @@ def profile():
 		top_tracks_data = make_get_request(f"{spotify_api_url}/me/top/tracks?limit=25", session)
 		
 		session['curr_user'] = spotify_id
-		# if not User.query.filter(User.spotify_id == spotify_id).first():
-		# 	user = User(spotify_id=spotify_id)
-		#
-		# 	db.session.add(user)
-		# 	db.session.commit()
+		if not User.query.filter(User.spotify_id == spotify_id).first():
+			user = User(spotify_id=spotify_id)
+
+			db.session.add(user)
+			db.session.commit()
 		return render_template("profile.jinja2", profile=profile_data, artists=top_artist_data, tracks=top_tracks_data)
 
 
@@ -118,15 +118,15 @@ def artist_details(artist_id):
 		
 		spotify_id = artist_data['id']
 		
-		# if not Artist.query.get(spotify_id):
-		# 	artist = Artist(name=name, popularity=artist_data[popularity], image=image, id=spotify_id)
-		# 	db.session.add(artist)
-		# 	db.session.commit()
-		# elif Artist.query.filter(Artist.popularity == popularity).first():
-		# 	pass
-		# else:
-		# 	Artist.query.filter_by(id=spotify_id).update(dict(popularity=artist_data[popularity], image=image))
-		# 	db.session.commit()
+		if not Artist.query.get(spotify_id):
+			artist = Artist(name=name, popularity=artist_data[popularity], image=image, id=spotify_id)
+			db.session.add(artist)
+			db.session.commit()
+		elif Artist.query.filter(Artist.popularity == popularity).first():
+			pass
+		else:
+			Artist.query.filter_by(id=spotify_id).update(dict(popularity=artist_data[popularity], image=image))
+			db.session.commit()
 		
 		return render_template('artist_details.jinja2', artist=artist_data, image=image, top_tracks=artist_top_tracks_data,
 		                       related_artist=artist_related_artist_data)
@@ -157,34 +157,34 @@ def track_details(track_id):
 		else:
 			image = '/static/placeholder.png'
 		
-		# if Artist.query.get(artist_id) and not Track.query.get(track_id):
-		# 	track = Track(title=title, artist_id=artist_id, popularity=track_data[popularity],
-		# 	              energy=track_features_data.get(energy, default),
-		# 	              dance=track_features_data.get(danceability, default),
-		# 	              acoustic=track_features_data.get(acousticness, default),
-		# 	              speech=track_features_data.get(speechiness, default),
-		# 	              valence=track_features_data.get(valence, default), id=track_id, image=image)
-		# 	artist = Artist.query.get(artist_id)
-		#
-		# 	db.session.add(track)
-		# 	db.session.commit()
-		# else:
-		# 	name = track_data['artists'][0]['name']
-		# 	spotify_id = track_data['artists'][0]['id']
-		#
-		# 	artist = Artist(name=name, id=spotify_id)
-		# 	db.session.add(artist)
-		# 	db.session.commit()
-		#
-		# track = Track(title=title, artist_id=artist_id, popularity=track_data[popularity],
-		# 	              energy=track_features_data.get(energy, default),
-		# 	              dance=track_features_data.get(danceability, default),
-		# 	              acoustic=track_features_data.get(acousticness, default),
-		# 	              speech=track_features_data.get(speechiness, default),
-		# 	              valence=track_features_data.get(valence, default), id=track_id, image=image)
-		#
-		# db.session.add(track)
-		# db.session.commit()
+		if Artist.query.get(artist_id) and not Track.query.get(track_id):
+			track = Track(title=title, artist_id=artist_id, popularity=track_data[popularity],
+			              energy=track_features_data.get(energy, default),
+			              dance=track_features_data.get(danceability, default),
+			              acoustic=track_features_data.get(acousticness, default),
+			              speech=track_features_data.get(speechiness, default),
+			              valence=track_features_data.get(valence, default), id=track_id, image=image)
+			artist = Artist.query.get(artist_id)
+
+			db.session.add(track)
+			db.session.commit()
+		else:
+			name = track_data['artists'][0]['name']
+			spotify_id = track_data['artists'][0]['id']
+
+			artist = Artist(name=name, id=spotify_id)
+			db.session.add(artist)
+			db.session.commit()
+
+		track = Track(title=title, artist_id=artist_id, popularity=track_data[popularity],
+			              energy=track_features_data.get(energy, default),
+			              dance=track_features_data.get(danceability, default),
+			              acoustic=track_features_data.get(acousticness, default),
+			              speech=track_features_data.get(speechiness, default),
+			              valence=track_features_data.get(valence, default), id=track_id, image=image)
+
+		db.session.add(track)
+		db.session.commit()
 	
 	return render_template('track_details.jinja2', track=track, artist=artist)
 
