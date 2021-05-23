@@ -1,5 +1,5 @@
 import os
-from collections import defaultdict
+# from collections import defaultdict
 
 # these are all for spotify
 client_id = os.environ.get("CLIENT_ID")
@@ -18,15 +18,15 @@ redirect_uri = os.environ.get("REDIRECT_URI")
 scope = "user-read-private user-read-email user-top-read playlist-modify-public playlist-modify-private"
 state = ""
 
-consts = defaultdict(str)
-consts.energy = 'energy'
-consts.danceability = 'danceability'
-consts.acousticness = 'acousticness'
-consts.speechiness = 'speechiness'
-consts.valence = 'valence'
-consts.popularity = 'popularity'
-consts.dance = 'danceability'
-consts.acoustic = 'acousticness'
-consts.speech = 'speechiness'
+# consts = defaultdict(str)
+energy = 'energy'
+danceability = 'danceability'
+acousticness = 'acousticness'
+speechiness = 'speechiness'
+valence = 'valence'
+popularity = 'popularity'
+dance = 'danceability'
+acoustic = 'acousticness'
+speech = 'speechiness'
 
 default = 0.00

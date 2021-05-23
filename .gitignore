@@ -6,3 +6,4 @@ venv/
 #Dockerfile
 #docker-compose.yml
 Procfile
+config.py

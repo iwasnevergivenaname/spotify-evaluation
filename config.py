@@ -1,17 +1,14 @@
 import os
-
-# DIALECT = 'postgresql'
-# DRIVER = 'psycopg'
+#
+# D = 'postgresql'
 # USERNAME = 'username'
 # PASSWORD = 'password'
 # HOST = '127.0.0.1'
 # PORT = '5000'
-# DATABASE = 'd25s4qct6bnu2j'
-# SQLALCHEMY_DATABASE_URI = "{}+{}://{}:{}@{}:{}/{}?charset=utf8".format(DIALECT, DRIVER, USERNAME, PASSWORD, HOST, PORT,
-#                                                                        DATABASE)
-# DATABASE_URL = 'postgresql://spotify_evaluation'
-SQLALCHEMY_DATABASE_URI = 'postgresql://canguvfyjkvtbx:58e8c1e670c4619c5e06c363b6d127a53ea7245452eeb20d739a90a0776b1b30@ec2-52-87-107-83.compute-1.amazonaws.com:5432/d25s4qct6bnu2j'
-
+# DATABASE = 'spotify_evaluation'
+# SQLALCHEMY_DATABASE_URI = "postgresql://username:password@127.0.0.1:5000/spotify_evaluation??client_encoding=utf8"
+# DATABASE_URL = '://spotify_evaluation'
+SQLALCHEMY_DATABASE_URI = 'postgres://dkrwgjkiisnzkc:748626c57cf65eca1e20ee1b3b3c44c5bfd217e59c289ea39ad81042ef85279e@ec2-54-160-96-70.compute-1.amazonaws.com:5432/d49mcq21tdbt13'
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 CLIENT_ID = os.environ['CLIENT_ID']
