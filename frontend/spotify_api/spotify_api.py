@@ -8,8 +8,8 @@ from flask import current_app as app
 from flask_sqlalchemy import SQLAlchemy
 from models import User, Artist, Track, connect_db, db
 from .services.data_parsing import make_get_request
-from ..static.services.constants import client_id, client_secret, spotify_auth_url, redirect_uri, spotify_api_url, scope, state, \
-	danceability, energy, valence, popularity, speechiness, acousticness, default
+from ..static.services.constants import client_id, client_secret, spotify_auth_url, redirect_uri, spotify_api_url, \
+	spotify_token_url, scope, state, danceability, energy, valence, popularity, speechiness, acousticness, default
 
 # blueprint configuration
 spotify_api_bp = Blueprint(
@@ -89,7 +89,7 @@ def profile():
 		session['curr_user'] = spotify_id
 		if not User.query.filter(User.spotify_id == spotify_id).first():
 			user = User(spotify_id=spotify_id)
-
+			
 			db.session.add(user)
 			db.session.commit()
 		return render_template("profile.jinja2", profile=profile_data, artists=top_artist_data, tracks=top_tracks_data)
@@ -130,8 +130,8 @@ def artist_details(artist_id):
 		
 		return render_template('artist_details.jinja2', artist=artist_data, image=image, top_tracks=artist_top_tracks_data,
 		                       related_artist=artist_related_artist_data)
-	
-	
+
+
 @spotify_api_bp.route("/track/<track_id>", methods=["GET"])
 def track_details(track_id):
 	if not session.get('access_token'):
@@ -165,24 +165,24 @@ def track_details(track_id):
 			              speech=track_features_data.get(speechiness, default),
 			              valence=track_features_data.get(valence, default), id=track_id, image=image)
 			artist = Artist.query.get(artist_id)
-
+			
 			db.session.add(track)
 			db.session.commit()
 		else:
 			name = track_data['artists'][0]['name']
 			spotify_id = track_data['artists'][0]['id']
-
+			
 			artist = Artist(name=name, id=spotify_id)
 			db.session.add(artist)
 			db.session.commit()
-
+		
 		track = Track(title=title, artist_id=artist_id, popularity=track_data[popularity],
-			              energy=track_features_data.get(energy, default),
-			              dance=track_features_data.get(danceability, default),
-			              acoustic=track_features_data.get(acousticness, default),
-			              speech=track_features_data.get(speechiness, default),
-			              valence=track_features_data.get(valence, default), id=track_id, image=image)
-
+		              energy=track_features_data.get(energy, default),
+		              dance=track_features_data.get(danceability, default),
+		              acoustic=track_features_data.get(acousticness, default),
+		              speech=track_features_data.get(speechiness, default),
+		              valence=track_features_data.get(valence, default), id=track_id, image=image)
+		
 		db.session.add(track)
 		db.session.commit()
 	
