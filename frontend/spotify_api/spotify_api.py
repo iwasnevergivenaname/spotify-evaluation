@@ -77,7 +77,6 @@ def profile():
 	else:
 		# profile data
 		profile_data = make_get_request(f"{spotify_api_url}/me", session)
-		print(profile_data)
 		spotify_id = profile_data['id']
 		
 		# user top artists
@@ -99,9 +98,18 @@ def profile():
 def artist_details(artist_id):
 	if not session.get('access_token'):
 		return redirect("/connect")
-	else:
+	elif Artist.query.get(artist_id):
 		print("In artist info")
-		print(Artist.query.get(artist_id))
+		print(A)
+		artist_data = Artist.query.get(artist_id)
+		# artist top tracks
+		artist_top_tracks_data = make_get_request(f"{spotify_api_url}/artists/{artist_id}/top-tracks?market=US", session)
+		
+		# artists related artist
+		artist_related_artist_data = make_get_request(f"{spotify_api_url}/artists/{artist_id}/related-artists", session)
+		return render_template('artist_details.jinja2', artist=artist_data, image=artist_data['image'], top_tracks=artist_top_tracks_data,
+		                       related_artist=artist_related_artist_data)
+	else:
 		# artist
 		artist_data = make_get_request(f"{spotify_api_url}/artists/{artist_id}", session)
 		
