@@ -99,8 +99,6 @@ def artist_details(artist_id):
 	if not session.get('access_token'):
 		return redirect("/connect")
 	elif Artist.query.get(artist_id):
-		print("In artist info")
-		print("🍄🍄🍄")
 		artist_data = Artist.query.get(artist_id)
 		# artist top tracks
 		artist_top_tracks_data = make_get_request(f"{spotify_api_url}/artists/{artist_id}/top-tracks?market=US", session)
@@ -147,13 +145,13 @@ def artist_details(artist_id):
 def track_details(track_id):
 	if not session.get('access_token'):
 		return redirect("/connect")
-	else:
-		if Track.query.get(track_id):
-			track = Track.query.get(track_id)
-			artist = Artist.query.get(track.artist_id)
-			
-			return render_template('track_details.jinja2', track=track, artist=artist)
+	elif Track.query.get(track_id):
 		
+		track = Track.query.get(track_id)
+		artist = Artist.query.get(track.artist_id)
+			
+		return render_template('track_details.jinja2', track=track, artist=artist)
+	else:
 		# track
 		track_data = make_get_request(f"{spotify_api_url}/tracks/{track_id}", session)
 		
