@@ -100,7 +100,7 @@ def artist_details(artist_id):
 		return redirect("/connect")
 	elif Artist.query.get(artist_id):
 		print("In artist info")
-		print(A)
+		print("🍄🍄🍄")
 		artist_data = Artist.query.get(artist_id)
 		# artist top tracks
 		artist_top_tracks_data = make_get_request(f"{spotify_api_url}/artists/{artist_id}/top-tracks?market=US", session)
