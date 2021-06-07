@@ -100,6 +100,8 @@ def artist_details(artist_id):
 	if not session.get('access_token'):
 		return redirect("/connect")
 	else:
+		print("In artist info")
+		print(Artist.query.get(artist_id))
 		# artist
 		artist_data = make_get_request(f"{spotify_api_url}/artists/{artist_id}", session)
 		
@@ -118,7 +120,8 @@ def artist_details(artist_id):
 		
 		spotify_id = artist_data['id']
 		
-		if not Artist.query.get(spotify_id):
+		if not Artist.query.get(artist_id):
+			print("if NOT IN DATA BASE")
 			artist = Artist(name=name, popularity=artist_data[popularity], image=image, id=spotify_id)
 			db.session.add(artist)
 			db.session.commit()
