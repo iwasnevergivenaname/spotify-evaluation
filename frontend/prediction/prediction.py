@@ -28,6 +28,9 @@ def predict(track_id):
 	         popularity: request.form.get(popularity), 'track_id': track_id, 'user_id': user_id}
 	
 	prediction = requests.post(prediction_model_endpoint, json=track)
+	print("🌸🌸")
+	print(prediction)
+	print("🌸🌸")
 	if prediction.status_code == 200:
 		return redirect(f'/evaluation/{track_id}')
 	return redirect("/error")

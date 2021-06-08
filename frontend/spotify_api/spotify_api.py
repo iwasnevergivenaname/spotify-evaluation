@@ -146,13 +146,11 @@ def track_details(track_id):
 	if not session.get('access_token'):
 		return redirect("/connect")
 	elif Track.query.get(track_id):
-		print("🍄🍄 got track id")
 		track = Track.query.get(track_id)
 		artist = Artist.query.get(track.artist_id)
 			
 		return render_template('track_details.jinja2', track=track, artist=artist)
 	else:
-		print("🦋🦋 no track id found")
 		# track
 		track_data = make_get_request(f"{spotify_api_url}/tracks/{track_id}", session)
 		
