@@ -33,7 +33,7 @@ def predict(track_id):
 	print("🌸🌸")
 	print(test.status_code)
 	print("🌸🌸")
-	prediction = requests.post(prediction_model_endpoint, json=track)
+	prediction = requests.post("https://mlsmodel.herokuapp.com/predict", json=track)
 	print("🌸🌸")
 	print(prediction)
 	print("🌸🌸")
