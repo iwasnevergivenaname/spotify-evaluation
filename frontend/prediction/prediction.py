@@ -29,7 +29,10 @@ def predict(track_id):
 	         danceability: request.form.get(dance), energy: request.form.get(energy),
 	         speechiness: request.form.get(speech), valence: request.form.get(valence),
 	         popularity: request.form.get(popularity), 'track_id': track_id, 'user_id': user_id}
-	
+	test = requests.get("https://mlsmodel.herokuapp.com/")
+	print("🌸🌸")
+	print(test.status_code)
+	print("🌸🌸")
 	prediction = requests.post(prediction_model_endpoint, json=track)
 	print("🌸🌸")
 	print(prediction)
