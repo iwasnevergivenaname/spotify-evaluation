@@ -20,6 +20,9 @@ prediction_model_endpoint = os.environ.get("PREDICTION_MODEL_ENDPOINT")
 
 @prediction_bp.route('/predict/<track_id>', methods=['GET', 'POST'])
 def predict(track_id):
+	print("🌱🌱")
+	print("track id predict")
+	print("🌱🌱")
 	track_id = track_id
 	user_id = session['curr_user']
 	track = {'title': request.form.get("title"), acousticness: request.form.get(acoustic),
