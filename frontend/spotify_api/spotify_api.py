@@ -9,7 +9,9 @@ from flask_sqlalchemy import SQLAlchemy
 from models import User, Artist, Track, connect_db, db
 from .services.data_parsing import make_get_request
 from ..static.services.constants import client_id, client_secret, spotify_auth_url, redirect_uri, spotify_api_url, \
-	spotify_token_url, scope, state, danceability, energy, valence, popularity, speechiness, acousticness, default
+	spotify_token_url, scope, state, danceability, energy, valence, popularity, speechiness, acousticness
+
+default = 0.0
 
 # blueprint configuration
 spotify_api_bp = Blueprint(
